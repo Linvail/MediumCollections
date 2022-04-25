@@ -4,20 +4,30 @@
 
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #include "LeetCodeUtil.h"
 #include "ArrayAndStrings.h"
+#include "ThreeSum.h"
+#include "TwoSumSorted.h"
 
-using namespace std;
+using namespace ArrayAndStrings;
 
 int main()
 {
-    cout << "Calling threeSum..." << endl;
-    // Output: [[-1,-1,2],[-1,0,1]]
-    vector<int> testData = { -1, 0, 1, 2, -1, -4 };
+	#if 0
+	test_threeSum();
 
+	test_setZeroes();
 
-    auto result = ArrayAndStrings::threeSum( testData );
+	test_twoSum_sorted();
 
-    LeetCodeUtil::printVectorOfVector( result );
+	test_groupAnagrams();
+
+	test_lengthOfLongestSubstring();
+	#endif
+
+	test_longestPalindrome();
+
+	test_increasingTriplet();
 }

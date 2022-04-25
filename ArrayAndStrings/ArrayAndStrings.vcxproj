@@ -141,11 +141,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArrayAndStrings.cpp" />
+    <ClCompile Include="GroupAnagrams.cpp" />
+    <ClCompile Include="IncreasingTripletSubsequence.cpp" />
+    <ClCompile Include="LongestPalindromicSubstring.cpp" />
+    <ClCompile Include="LongestSubstringWithoutRepeatingCharacters.cpp" />
+    <ClCompile Include="SetMatrixZeroes.cpp" />
     <ClCompile Include="ThreeSum.cpp" />
+    <ClCompile Include="TwoSumSorted.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayAndStrings.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="ThreeSum.h" />
+    <ClInclude Include="TwoSumSorted.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LeetCodeUtil\LeetCodeUtil.vcxproj">
