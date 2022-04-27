@@ -15,7 +15,7 @@ namespace ArrayAndStrings
         int min = INT_MAX;
         int mid = INT_MAX;
 
-        // min < mid < 3rd
+        // nums[i] < min < nums[j] < mid < nums[k]
         for( int i : nums )
         {
             // Note that we use "<=" rather than "<" because the "return true" statement is put in the last.

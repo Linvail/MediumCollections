@@ -31,4 +31,9 @@ namespace ArrayAndStrings
     bool increasingTriplet( vector<int>& nums );
 
     void test_increasingTriplet();
+
+    // 38. Count and Say
+    string countAndSay( int n );
+
+    void test_countAndSay();
 }

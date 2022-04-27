@@ -150,4 +150,29 @@ namespace LeetCodeUtil
         }
     }
 
+    ListNode* buildLinkedListFromVector( const vector<int>& aInput )
+    {
+        ListNode* head = nullptr;
+        ListNode* tail = nullptr;
+        for( int i = 0; i < aInput.size(); ++i )
+        {
+            ListNode* newNode = new ListNode( aInput[i] );
+            newNode->deleteNext = true;
+
+            if( i == 0 )
+            {
+                head = newNode;
+                tail = head;
+            }
+            else
+            {
+                tail->next = newNode;
+                tail = newNode;
+            }
+
+        }
+
+        return head;
+    }
+
 }

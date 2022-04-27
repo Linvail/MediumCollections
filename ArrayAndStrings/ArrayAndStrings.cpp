@@ -25,9 +25,11 @@ int main()
 	test_groupAnagrams();
 
 	test_lengthOfLongestSubstring();
-	#endif
 
 	test_longestPalindrome();
 
 	test_increasingTriplet();
+	#endif
+
+	test_countAndSay();
 }

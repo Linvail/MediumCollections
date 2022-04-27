@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{6a10c886-9816-455d-9c3d-b932785482c3}</ProjectGuid>
-    <RootNamespace>ArrayAndStrings</RootNamespace>
+    <ProjectGuid>{4f46f079-5a4f-44c8-a699-367d05ac65ec}</ProjectGuid>
+    <RootNamespace>LinkedList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\LeetCodeUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../LeetCodeUtil</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,21 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayAndStrings.cpp" />
-    <ClCompile Include="CountandSay.cpp" />
-    <ClCompile Include="GroupAnagrams.cpp" />
-    <ClCompile Include="IncreasingTripletSubsequence.cpp" />
-    <ClCompile Include="LongestPalindromicSubstring.cpp" />
-    <ClCompile Include="LongestSubstringWithoutRepeatingCharacters.cpp" />
-    <ClCompile Include="SetMatrixZeroes.cpp" />
-    <ClCompile Include="ThreeSum.cpp" />
-    <ClCompile Include="TwoSumSorted.cpp" />
+    <ClCompile Include="AddTwoNumbers.cpp" />
+    <ClCompile Include="IntersectionOfTwoLinkedLists.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="OddEvenLinked List.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrayAndStrings.h" />
-    <ClInclude Include="Helper.h" />
-    <ClInclude Include="ThreeSum.h" />
-    <ClInclude Include="TwoSumSorted.h" />
+    <ClInclude Include="LinkedList.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LeetCodeUtil\LeetCodeUtil.vcxproj">
