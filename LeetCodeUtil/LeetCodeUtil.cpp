@@ -5,6 +5,8 @@
 #include "framework.h"
 
 #include <future>
+#include <queue>
+#include <string>
 
 #include "LeetCodeUtil.h"
 
@@ -175,4 +177,84 @@ namespace LeetCodeUtil
         return head;
     }
 
+    void printTreeLevelOrder( TreeNode* root )
+    {
+        vector<string> dataToPrint;
+        queue<TreeNode*> nodeQueue;
+        nodeQueue.push( root );
+
+        while( !nodeQueue.empty() )
+        {
+            for( int i = 0; i < nodeQueue.size(); ++i )
+            {
+                TreeNode* cur = nodeQueue.front();
+                nodeQueue.pop();
+
+                string data = cur ? to_string( cur->val ) : "null";
+                dataToPrint.push_back( data );
+
+                if( !cur )
+                {
+                    continue;
+                }
+
+                bool isLastNode = nodeQueue.size() == 0;
+
+                if( cur->left )
+                {
+                    nodeQueue.push( cur->left );
+                }
+                else if( !isLastNode )
+                {
+                    nodeQueue.push( nullptr );
+                }
+
+                if( cur->right )
+                {
+                    nodeQueue.push( cur->right );
+                }
+                else if( !isLastNode )
+                {
+                    nodeQueue.push( nullptr );
+                }
+            }
+        }
+
+        // Remove "null" in the tail.
+        int removeIndex = dataToPrint.size();
+        auto rit = dataToPrint.rbegin();
+        for( ; rit != dataToPrint.rend(); ++rit )
+        {
+            if( *rit != "null" )
+            {
+                break;
+            }
+            removeIndex--;
+        }
+        dataToPrint.erase( dataToPrint.begin() + removeIndex, dataToPrint.end() );
+
+        cout << "[";
+
+        for( int i = 0; i < dataToPrint.size(); ++i )
+        {
+            cout << dataToPrint[i];
+
+            if( i != dataToPrint.size() - 1 )
+            {
+                cout << ", ";
+            }
+        }
+
+        cout << "]" << endl;
+    }
+
+    void cleanUp( TreeNode* root )
+    {
+        if( root )
+        {
+            cleanUp( root->left );
+            cleanUp( root->right );
+        }
+        delete root;
+    }
 }
