@@ -62,9 +62,43 @@ namespace TreesAndGraphs
         return result;
     }
 
+    //---------------------------------------------------------------------------
     // pre-order: 4213657
     // middle -> left -> right
+    //---------------------------------------------------------------------------
+
+    // Use the similar template as inorder/postorder.
     vector<int> preOrderTraversal( TreeNode* root )
+    {
+        vector<int> result;
+
+        if( !root )
+        {
+            return result;
+        }
+
+        stack<TreeNode*> nodeStack;
+        TreeNode* cur = root;
+
+        while( cur || !nodeStack.empty() )
+        {
+            if( cur )
+            {
+                result.push_back( cur->val );
+                nodeStack.push( cur );
+                cur = cur->left;
+            }
+            else
+            {
+                cur = nodeStack.top()->right;
+                nodeStack.pop();
+            }
+        }
+
+        return result;
+    }
+
+    vector<int> preOrderTraversal_v2( TreeNode* root )
     {
         vector<int> result;
 
@@ -99,10 +133,44 @@ namespace TreesAndGraphs
     // post-order: 1325764
     // left -> right -> middle
     // Postorder traversal can be used to delete the tree.
-    // Two ways to do this:
-    // 1. Use two stacks. This method will not break the tree's structure.
+    // Several ways to do this:
+    // 0. Template version but do not use stack.
+    // 1. Modified from preOrderTraversal_v2. Change it to root -> right -> left, then reverse it to left -> right -> root.
     // 2. Push left/right node to stack and set left/right to nullptr of a node. If left/right are both nullptr, then visit the node.
+
+    // Template version: idea: preorder is root -> left -> rigt.
+    // We can change it to root -> right -> left, then reverse it to left -> right -> root.
     vector<int> postOrderTraversal( TreeNode* root )
+    {
+        vector<int> result;
+
+        if( !root )
+        {
+            return result;
+        }
+
+        stack<TreeNode*> nodeStack;
+        TreeNode* cur = root;
+
+        while( cur || !nodeStack.empty() )
+        {
+            if( cur )
+            {
+                result.insert( result.begin(), cur->val );
+                nodeStack.push( cur );
+                cur = cur->right;
+            }
+            else
+            {
+                cur = nodeStack.top()->left;
+                nodeStack.pop();
+            }
+        }
+
+        return result;
+    }
+
+    vector<int> postOrderTraversal_v1( TreeNode* root )
     {
         vector<int> result;
 

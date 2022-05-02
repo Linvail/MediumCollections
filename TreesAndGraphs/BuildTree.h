@@ -25,5 +25,12 @@ namespace TreesAndGraphs
     // 106. Construct Binary Tree from Inorder and Postorder Traversal (Medium).
     TreeNode* buildTree_in_post( vector<int>& inorder, vector<int>& postorder );
 
+    // 889. Construct Binary Tree from Preorder and Postorder Traversal (Medium).
+    // If there exist multiple answers, you can return any of them.
+    TreeNode* constructFromPrePost( vector<int>& preorder, vector<int>& postorder );
+
+    // 1008. Construct Binary Search Tree from Preorder Traversal (Medium).
+    TreeNode* bstFromPreorder( vector<int>& preorder );
+
     void test_buildTree();
 }
