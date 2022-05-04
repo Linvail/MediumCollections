@@ -211,30 +211,38 @@ namespace TreesAndGraphs
         return result;
     }
 
-    vector<int> levelOrderTraversal( TreeNode* root )
+    vector<vector<int>> levelOrderTraversal( TreeNode* root )
     {
-        vector<int> result;
-        queue<TreeNode*> nodeQueue;
-        nodeQueue.push( root );
+        vector<vector<int>> result;
 
-        while( !nodeQueue.empty() )
+        if( !root )
         {
-            for( int i = 0; i < nodeQueue.size(); ++i )
+            return result;
+        }
+
+        queue<TreeNode*> q;
+        q.push( root );
+        while( !q.empty() )
+        {
+            int size = q.size();
+            vector<int>v;
+            for( int i = 0; i < size; i++ )
             {
-                TreeNode* cur = nodeQueue.front();
-                result.push_back( cur->val );
-                nodeQueue.pop();
+                TreeNode* temp = q.front();
+                q.pop();
+                v.push_back( temp->val );
 
-                if( cur->left )
+                if( temp->left )
                 {
-                    nodeQueue.push( cur->left );
+                    q.push( temp->left );
+                }
+                if( temp->right )
+                {
+                    q.push( temp->right );
                 }
 
-                if( cur->right )
-                {
-                    nodeQueue.push( cur->right );
-                }
             }
+            result.push_back( v );
         }
 
         return result;
@@ -336,6 +344,204 @@ namespace TreesAndGraphs
         swap( first->val, second->val );
     }
 
+    //---------------------------------------------------------------------------
+    // 103 Binary Tree Zigzag Level Order Traversal
+    // This is a variant of level order traversal.
+    //---------------------------------------------------------------------------
+    vector<vector<int>> zigzagLevelOrder( TreeNode* root )
+    {
+        vector<vector<int>> result;
+        if( !root )
+        {
+            return result;
+        }
+
+        bool oddLevel = true;
+        queue<TreeNode*> nodeQueue;
+        nodeQueue.push( root );
+
+        while( !nodeQueue.empty() )
+        {
+            const int len = nodeQueue.size(); // Size of this level.
+            vector<int> levelResult( len );
+            for( int i = 0; i < len; ++i )
+            {
+                TreeNode* current = nodeQueue.front();
+                const int index = oddLevel ? i : len - i - 1;
+                levelResult[index] = current->val;
+                nodeQueue.pop();
+
+                // Note that this will change nodeStack's size, so we cannot call nodeStack.size() in for-loop.
+                // We must use 'len'.
+                if( current->left )
+                {
+                    nodeQueue.push( current->left );
+                }
+
+                if( current->right )
+                {
+                    nodeQueue.push( current->right );
+                }
+            }
+
+            result.push_back( levelResult );
+            oddLevel = !oddLevel;
+        }
+
+        return result;
+    }
+
+    //---------------------------------------------------------------------------
+    // 116. Populating Next Right Pointers in Each Node
+    // You may only use constant extra space.
+    // The recursive approach is fine.You may assume implicit stack space does not count as extra space for this problem.
+    //
+    // This could be a variant of level order traversal. However, it would take more than constant space if we use
+    // iterative method. So, we will use the recursive method.
+    //
+    // There is also a tricky iterative method that only take constant space.
+    // It use a pointer to mark each level's start point, and use another poiter to traverse the tree.
+    //---------------------------------------------------------------------------
+
+    TreeNode* connect( TreeNode* root )
+    {
+        if( !root )
+        {
+            return nullptr;
+        }
+
+        if( root->left )
+        {
+            root->left->next = root->right;
+        }
+        if( root->right )
+        {
+            root->right->next = !root->next ? nullptr : root->next->left;
+        }
+
+        connect( root->left );
+        connect( root->right );
+
+        return root;
+    }
+
+    // Non-recursion, constant space
+    TreeNode* connect_iterative( TreeNode* root )
+    {
+        if( !root )
+        {
+            return nullptr;
+        }
+
+        TreeNode* start = root;
+        TreeNode* cur = nullptr;
+
+        while( start->left )
+        {
+            cur = start;
+            while( cur )
+            {
+                cur->left->next = cur->right;
+
+                if( cur->next )
+                {
+                    cur->right->next = cur->next->left;
+                }
+
+                cur = cur->next;
+            }
+            start = start->left;
+        }
+        return root;
+    }
+
+    //---------------------------------------------------------------------------
+    // 117. Populating Next Right Pointers in Each Node II
+    //
+    // Contrary to 116, the input binary tree might be not perfect.
+    //---------------------------------------------------------------------------
+
+    TreeNode* findNextConnect( TreeNode* root )
+    {
+        TreeNode* target = nullptr;
+        while( root && root->next )
+        {
+            if( root->next->left )
+            {
+                target = root->next->left;
+                break;
+            }
+            if( root->next->right )
+            {
+                target = root->next->right;
+                break;
+            }
+            root = root->next;
+        }
+
+        return target;
+    }
+
+    TreeNode* findNextStart( TreeNode* root )
+    {
+        do
+        {
+            if( root->left )
+            {
+                return root->left;
+            }
+            if( root->right )
+            {
+                return root->right;
+            }
+
+            root = root->next;
+        } while( root );
+
+        return nullptr;
+    }
+
+    TreeNode* connect_not_perfect( TreeNode* root )
+    {
+        if( !root )
+        {
+            return nullptr;
+        }
+
+        TreeNode* start = root;
+        TreeNode* cur = nullptr;
+
+        while( start )
+        {
+            cur = start;
+            while( cur )
+            {
+                if( cur->left ) // Check because the tree might be not perfect.
+                {
+                    if( cur->right )
+                    {
+                        cur->left->next = cur->right;
+                    }
+                    else
+                    {
+                        cur->left->next = findNextConnect( cur );
+                    }
+                }
+
+                if( cur->right )
+                {
+                    cur->right->next = findNextConnect( cur );
+                }
+
+                cur = cur->next;
+            }
+
+            // Find the start point in the next level.
+            start = findNextStart( start );
+        }
+        return root;
+    }
+
     void test_traversal()
     {
         // Input: root = [1,null,2,3]
@@ -375,11 +581,11 @@ namespace TreesAndGraphs
         printVector( result );
         cout << endl;
 
-        result = levelOrderTraversal( testData );
+        auto resultVV = levelOrderTraversal( testData );
 
         // 4261357
         cout << "Result of levelOrderTraversal: ";
-        printVector( result );
+        printVectorOfVector( resultVV );
         cout << endl;
 
         cleanUp( testData );
@@ -414,5 +620,32 @@ namespace TreesAndGraphs
         cleanUp( testData );
 
         cout << "\n";
+
+        // 103 Binary Tree Zigzag Level Order Traversal
+        // Input: root = [3,9,20,null,null,15,7]
+        // Output: [[3], [20, 9], [15, 7]]
+        testV = { "3", "9", "20", "null", "null", "15", "7" };
+        testData = levelOrderCreateTree( testV );
+        resultVV = zigzagLevelOrder( testData );
+        cout << "Result of zigzagLevelOrder: " << endl;
+        printVectorOfVector( resultVV );
+
+        cout << "\n";
+
+        testV = { "1", "2", "3", "4", "5", "6", "7" };
+        testData = levelOrderCreateTree( testV );
+        TreeNode* nodeResult = connect_iterative( testData );
+        // Use debugger to examine the result.
+        cleanUp( nodeResult );
+
+        cout << "\n";
+
+        //testV = { "1", "2", "3", "4", "5", "null", "7" };
+        //testV = { "3", "9", "20", "null", "null", "15", "7" };
+        testV = { "-1", "-7", "9", "null", "null", "-1", "-7", "null", "null", "null", "null", "null", "8", "-9" };
+        testData = levelOrderCreateTree( testV );
+        nodeResult = connect_not_perfect( testData );
+        // Use debugger to examine the result.
+        cleanUp( nodeResult );
     }
 }
