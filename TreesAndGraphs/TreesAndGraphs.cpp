@@ -18,4 +18,6 @@ int main()
     test_traversal();
 
     test_kthSmallest();
+
+    test_numIslands();
 }

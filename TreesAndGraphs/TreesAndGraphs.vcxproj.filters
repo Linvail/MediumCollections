@@ -27,12 +27,21 @@
     <ClCompile Include="KthSmallestElementInABST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MorrisTraversal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberOfIslands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreesAndGraphs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BuildTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MorrisTraversal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

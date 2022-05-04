@@ -142,6 +142,8 @@
   <ItemGroup>
     <ClCompile Include="BuildTree.cpp" />
     <ClCompile Include="KthSmallestElementInABST.cpp" />
+    <ClCompile Include="MorrisTraversal.cpp" />
+    <ClCompile Include="NumberOfIslands.cpp" />
     <ClCompile Include="Traversal.cpp" />
     <ClCompile Include="TreesAndGraphs.cpp" />
   </ItemGroup>
@@ -152,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildTree.h" />
+    <ClInclude Include="MorrisTraversal.h" />
     <ClInclude Include="TreesAndGraphs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -199,12 +199,13 @@ namespace LeetCodeUtil
                 }
 
                 bool isLastNode = nodeQueue.size() == 0;
+                bool isRoot = root == cur;
 
                 if( cur->left )
                 {
                     nodeQueue.push( cur->left );
                 }
-                else if( !isLastNode )
+                else if( !isLastNode || isRoot )
                 {
                     nodeQueue.push( nullptr );
                 }
@@ -213,7 +214,7 @@ namespace LeetCodeUtil
                 {
                     nodeQueue.push( cur->right );
                 }
-                else if( !isLastNode )
+                else if( !isLastNode || isRoot )
                 {
                     nodeQueue.push( nullptr );
                 }

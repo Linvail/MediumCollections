@@ -1,14 +1,18 @@
 #pragma once
 
-#include "LeetCodeUtil.h"
-
 #include <vector>
+#include <string>
 
-using namespace std;
-using namespace LeetCodeUtil;
+namespace LeetCodeUtil
+{
+    class TreeNode;
+}
 
 namespace TreesAndGraphs
 {
+    using namespace std;
+    using namespace LeetCodeUtil;
+
     void createTree_omit_missing_children( TreeNode* node, size_t level, vector<string>& arr );
 
     TreeNode* levelOrderCreateTree

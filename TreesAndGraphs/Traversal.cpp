@@ -1,15 +1,20 @@
 #include "TreesAndGraphs.h"
+#include "MorrisTraversal.h"
 
 #include <stack>
 #include <queue>
 
-using namespace LeetCodeUtil;
-
 namespace TreesAndGraphs
 {
+    using namespace LeetCodeUtil;
+
+    //---------------------------------------------------------------------------
     // 94. Binary Tree Inorder Traversal (Easy).
     // Follow up: Recursive solution is trivial, could you do it iteratively?
-    //
+    // pre-order: 4213657
+    // middle -> left -> right
+    //---------------------------------------------------------------------------
+
     // Note that do inorder traversal for a binay search tree is to sort in ascending order.
     // Inorder = left -> middle -> right
     vector<int> inorderTraversal( TreeNode* root )
@@ -235,7 +240,9 @@ namespace TreesAndGraphs
         return result;
     }
 
+    //---------------------------------------------------------------------------
     // 671. Second Minimum Node In a Binary Tree (Easy).
+    //---------------------------------------------------------------------------
     int findSecondMinimumValue( TreeNode* root )
     {
         if( !root->left )
@@ -255,6 +262,78 @@ namespace TreesAndGraphs
         {
             return min( secondMinOfLeft, secondMinOfRight );
         }
+    }
+
+    //---------------------------------------------------------------------------
+    // 99. Recover Binary Search Tree (Medium).
+    // Follow up: A solution using O(n) space is pretty straight-forward. Could you devise a constant O(1) space solution?
+    //---------------------------------------------------------------------------
+    void recoverTree( TreeNode* root )
+    {
+        // To achieve O(1) space, we must use Morris inorder traversal.
+
+        // 1 2 3 4 5 6 7. Assume 2 and 6 are swapped.
+        // 1 6 3 4 5 2 7. We need to find the node of 6 and 2. At the end, swap them.
+        //   ^       ^
+        //  first    second
+        TreeNode* current = root;
+        TreeNode* first = nullptr;
+        TreeNode* second = nullptr;
+        TreeNode* previous = nullptr;
+
+        while( current )
+        {
+            if( !current->left )
+            {
+                // Visit
+                if( previous && current->val < previous->val ) // error occurs.
+                {
+                    if( !first )
+                    {
+                        first = previous;
+                    }
+                    second = current;
+                }
+                previous = current;
+
+                current = current->right;
+            }
+            else
+            {
+                // Find the predecessor.
+                TreeNode* predecessor = current->left;
+                while( predecessor->right &&
+                    predecessor->right != current // This is important.
+                    )
+                {
+                    predecessor = predecessor->right;
+                }
+
+                if( !predecessor->right )
+                {
+                    predecessor->right = current;
+                    current = current->left;
+                }
+                else
+                {
+                    // Visit
+                    if( previous && current->val < previous->val ) // error occurs.
+                    {
+                        if( !first )
+                        {
+                            first = predecessor;
+                        }
+                        second = current;
+                    }
+                    previous = current;
+
+                    predecessor->right = nullptr;
+                    current = current->right;
+                }
+            }
+        }
+
+        swap( first->val, second->val );
     }
 
     void test_traversal()
@@ -317,6 +396,21 @@ namespace TreesAndGraphs
         testData = levelOrderCreateTree( specialTree );
         secondMinimum = findSecondMinimumValue( testData );
         cout << "Result of findSecondMinimumValue: " << secondMinimum << endl; // 2
+        cleanUp( testData );
+
+        cout << "\n";
+
+        test_morrisTraversal();
+
+        // 99. Recover Binary Search Tree
+        // Input: root = [3,1,4,null,null,2]
+        // Output: [2, 1, 4, null, null, 3]
+        specialTree = { "3", "1", "4", "null", "null", "2" };
+        //specialTree = { "1", "3", "null", "null", "2" };
+        testData = levelOrderCreateTree( specialTree );
+        recoverTree( testData );
+        cout << "Result of recoverTree: " << endl;
+        printTreeLevelOrder( testData );
         cleanUp( testData );
 
         cout << "\n";

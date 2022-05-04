@@ -1,12 +1,13 @@
 #include "BuildTree.h"
+#include "LeetCodeUtil.h"
 
 #include <string>
 #include <unordered_map>
 
-using namespace std;
-
 namespace TreesAndGraphs
 {
+    using namespace std;
+
     // { "4", "null", "6", "5", "7" };
     // { "4", "2", "6", "1", "3", "5", "7" };
     void createTree_omit_missing_children( TreeNode* node, size_t level, vector<string>& arr )
