@@ -194,6 +194,66 @@ namespace Backtracking
         }
     }
 
+    //-----------------------------------------------------------------------------------------------
+    // 78. Subsets
+    //
+    // There are recursive and iterative ways.
+    //-----------------------------------------------------------------------------------------------
+
+    // Iterative method
+    vector<vector<int>> subsets( vector<int>& nums )
+    {
+        vector<vector<int>> result = { {} };
+        for( int digit : nums )
+        {
+            const int len = result.size();
+            for( int i = 0; i < len; ++i )
+            {
+                const auto& set = result[i];
+                vector<int> copy( set );
+                copy.push_back( digit );
+                result.push_back( copy );
+            }
+        }
+
+        return result;
+    }
+
+    /*
+                            []
+                       /          \
+                      /            \
+                     /              \
+                  [1]                []
+               /       \           /    \
+              /         \         /      \
+           [1 2]       [1]       [2]     []
+          /     \     /   \     /   \    / \
+      [1 2 3] [1 2] [1 3] [1] [2 3] [2] [3] []
+    */
+    // Recursive method.
+    void subsets_recursive_helper( vector<int>& aNums, vector<vector<int>>& aResult, vector<int> aPartial, int aIndex )
+    {
+        aResult.push_back( aPartial );
+
+        for( int i = aIndex; i < aNums.size(); ++i )
+        {
+            aPartial.push_back( aNums[i] );
+            subsets_recursive_helper( aNums, aResult, aPartial, i + 1 );
+            aPartial.pop_back();
+        }
+    }
+
+    vector<vector<int>> subsets_recursive( vector<int>& nums )
+    {
+        vector<vector<int>> result;
+        vector<int> partial;
+
+        subsets_recursive_helper( nums, result, partial, 0 );
+
+        return result;
+    }
+
     vector<vector<int>> combine_DFS( int n, int k )
     {
         vector<vector<int>> result;
@@ -202,6 +262,73 @@ namespace Backtracking
         combine_DFS_helper( n, k, 1, result, combination );
 
         return result;
+    }
+
+    //-----------------------------------------------------------------------------------------------
+    // 79. Word Search
+    //
+    // Seems to be an application of graph DFS.
+    //-----------------------------------------------------------------------------------------------
+
+    int mBoardM;
+    int mBoardN;
+
+    bool searchWordDFS
+        (
+        vector<vector<char>>& aBoard,
+        const string& aWord,
+        const int aStartOfWord,
+        const int aX,
+        const int aY
+        )
+    {
+        if( aStartOfWord == aWord.size() )
+        {
+            return true;
+        }
+        if( aX < 0 || aX >= mBoardM || aY < 0 || aY >= mBoardN || aBoard[aX][aY] != aWord[aStartOfWord] )
+        {
+            return false;
+        }
+
+        const char c = aBoard[aX][aY];
+        // Mark the current cell as visited.
+        aBoard[aX][aY] = '#';
+
+        const bool res =
+            searchWordDFS( aBoard, aWord, aStartOfWord + 1, aX + 1, aY ) ||
+            searchWordDFS( aBoard, aWord, aStartOfWord + 1, aX - 1, aY ) ||
+            searchWordDFS( aBoard, aWord, aStartOfWord + 1, aX, aY + 1 ) ||
+            searchWordDFS( aBoard, aWord, aStartOfWord + 1, aX, aY - 1 );
+
+        // Undo the mark
+        aBoard[aX][aY] = c;
+
+        return res;
+    }
+
+    bool exist( vector<vector<char>>& board, string word )
+    {
+        if( board.empty() || board[0].empty() )
+        {
+            return false;
+        }
+
+        mBoardM = board.size();
+        mBoardN = board[0].size();
+
+        for( int i = 0; i < mBoardM; ++i )
+        {
+            for( int j = 0; j < mBoardN; ++j )
+            {
+                if( searchWordDFS( board, word, 0, i, j ) )
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     void test_Backtracking()
@@ -234,6 +361,26 @@ namespace Backtracking
         resultV = combine_DFS( 4, 2 );
         cout << "Result of combine(4 , 2): ";
         LeetCodeUtil::printVectorOfVector( resultV );
+        cout << endl;
+
+        // Input: nums = [1,2,3]
+        // Output: [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+        vector<int> setDigits = { 1, 2, 3 };
+        resultV = subsets_recursive( setDigits );
+        cout << "Result of subsets: ";
+        LeetCodeUtil::printVectorOfVector( resultV );
+        cout << endl;
+
+        // Input: board = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], word = "ABCCED"
+        // Output : true
+        string word( "Z" );
+        vector<vector<char>> charBoard = {
+            { 'A', 'B', 'C', 'E'},
+            { 'S', 'F', 'C', 'S'},
+            { 'A', 'D', 'E', 'E'},
+        };
+        bool resultB = exist( charBoard, word );
+        cout << "Result of Word Exist: " << resultB;
         cout << endl;
     }
 }

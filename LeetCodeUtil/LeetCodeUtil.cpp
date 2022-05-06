@@ -177,15 +177,17 @@ namespace LeetCodeUtil
         return head;
     }
 
-    void printTreeLevelOrder( TreeNode* root )
+    void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext )
     {
         vector<string> dataToPrint;
         queue<TreeNode*> nodeQueue;
-        nodeQueue.push( root );
+        nodeQueue.push( aRoot );
 
         while( !nodeQueue.empty() )
         {
-            for( int i = 0; i < nodeQueue.size(); ++i )
+            const int len = nodeQueue.size();
+
+            for( int i = 0; i < len; ++i )
             {
                 TreeNode* cur = nodeQueue.front();
                 nodeQueue.pop();
@@ -199,7 +201,7 @@ namespace LeetCodeUtil
                 }
 
                 bool isLastNode = nodeQueue.size() == 0;
-                bool isRoot = root == cur;
+                bool isRoot = aRoot == cur;
 
                 if( cur->left )
                 {
@@ -219,6 +221,16 @@ namespace LeetCodeUtil
                     nodeQueue.push( nullptr );
                 }
             }
+
+            if( aPrintNext )
+            {
+                dataToPrint.push_back( "#" );
+            }
+        }
+
+        if( dataToPrint.size() > 1 && dataToPrint[dataToPrint.size() - 2] == "null" )
+        {
+            dataToPrint.pop_back(); // remove the last "#".
         }
 
         // Remove "null" in the tail.

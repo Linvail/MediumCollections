@@ -636,6 +636,8 @@ namespace TreesAndGraphs
         testData = levelOrderCreateTree( testV );
         TreeNode* nodeResult = connect_iterative( testData );
         // Use debugger to examine the result.
+        cout << "Result of Populating Next Right Pointers in Each Node:";
+        printTreeLevelOrder( nodeResult, true );
         cleanUp( nodeResult );
 
         cout << "\n";
@@ -645,7 +647,9 @@ namespace TreesAndGraphs
         testV = { "-1", "-7", "9", "null", "null", "-1", "-7", "null", "null", "null", "null", "null", "8", "-9" };
         testData = levelOrderCreateTree( testV );
         nodeResult = connect_not_perfect( testData );
+        cout << "Result of Populating Next Right Pointers in Each Node II:";
         // Use debugger to examine the result.
+        printTreeLevelOrder( nodeResult, true );
         cleanUp( nodeResult );
     }
 }

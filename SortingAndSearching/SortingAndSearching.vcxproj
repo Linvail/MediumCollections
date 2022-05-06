@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4f46f079-5a4f-44c8-a699-367d05ac65ec}</ProjectGuid>
-    <RootNamespace>LinkedList</RootNamespace>
+    <ProjectGuid>{cdde94df-48e2-4945-87c3-30109fec467c}</ProjectGuid>
+    <RootNamespace>SortingAndSearching</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,18 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AddTwoNumbers.cpp" />
-    <ClCompile Include="IntersectionOfTwoLinkedLists.cpp" />
-    <ClCompile Include="LinkedList.cpp" />
-    <ClCompile Include="OddEvenLinked List.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="LinkedList.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SortingAndSearching.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LeetCodeUtil\LeetCodeUtil.vcxproj">
       <Project>{0b5f4636-bac9-49ba-a761-129ad5bb0420}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SortingAndSearching.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
