@@ -170,6 +170,275 @@ namespace SortingAndSearching
         return right;
     }
 
+    //------------------------------------------------------------------------------------------------------------------------
+    // 34. Find First and Last Position of Element in Sorted Array
+    //
+    // A.k.a Search for a Range
+    // You must write an algorithm with O(log n) runtime complexity.
+    //
+    // Idea: Use binary search twice.
+    //------------------------------------------------------------------------------------------------------------------------
+
+    // A helper function to find the first element that is greater or equal to the target by using binary search.
+    // If not found, return aEnd.
+    int firstGreaterOrEqual
+        (
+        vector<int>& nums,
+        int aStart,
+        int aEnd,
+        int target
+        )
+    {
+        while( aStart < aEnd )
+        {
+            const int mid = aStart + ( aEnd - aStart ) / 2;
+
+            if( nums[mid] < target )
+            {
+                aStart = mid + 1;
+            }
+            else
+            {
+                aEnd = mid;
+            }
+        }
+
+        return aEnd;
+    }
+
+    vector<int> searchRange( vector<int>& nums, int target )
+    {
+        vector<int> result( 2, -1 );
+
+        int start = firstGreaterOrEqual( nums, 0, nums.size(), target );
+        if( start == nums.size() || nums[start] != target )
+        {
+            return result;
+        }
+        result[0] = start;
+
+        int end = firstGreaterOrEqual( nums, start, nums.size(), target + 1 );
+        result[1] = end - 1;
+
+        return result;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 57. Insert Interval
+    //
+    // Idea: Iterate the intervals. Insert if no overlap and increment the position for the newInterval.
+    // If overlapped, update the newInterval.
+    // After interated all, insert the newInterval into the correct position.
+    //------------------------------------------------------------------------------------------------------------------------
+    vector<vector<int>> insert( vector<vector<int>>& intervals, vector<int>& newInterval )
+    {
+        vector<vector<int>> result;
+        int newPosition = 0;
+        for( int i = 0; i < intervals.size(); ++i )
+        {
+            if( intervals[i][0] > newInterval[1] ) // newInterval is on the left
+            {
+                // not overlap.
+                result.push_back( intervals[i] );
+            }
+            else if( intervals[i][1] < newInterval[0] ) // newInterval is on the right
+            {
+                // not overlap.
+                result.push_back( intervals[i] );
+                newPosition++;
+            }
+            else
+            {
+                newInterval[0] = min( newInterval[0], intervals[i][0] );
+                newInterval[1] = max( newInterval[1], intervals[i][1] );
+            }
+        }
+
+        result.insert( result.begin() + newPosition, newInterval );
+
+        return result;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 56. Merge Intervals
+    //------------------------------------------------------------------------------------------------------------------------
+
+    // Compare function
+    bool CompareTwoVector( const vector<int>& aInterval1, const vector<int>& aInterval2 )
+    {
+        if( aInterval1.empty() || aInterval2.empty() ) // This won't actually happen.
+        {
+            return false;
+        }
+
+        if( aInterval1[0] <= aInterval2[0] )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // Idea: sort and merge.
+    vector<vector<int>> merge( vector<vector<int>>& intervals )
+    {
+        vector<vector<int>> result;
+        if( intervals.empty() )
+        {
+            return result;
+        }
+
+        sort( intervals.begin(), intervals.end(), CompareTwoVector );
+        // Insert the 1st one directly.
+        result.emplace_back( intervals[0] );
+
+        for( int i = 1; i < intervals.size(); ++i )
+        {
+            if( intervals[i][0] <= result.back()[1] ) // overlap
+            {
+                // Merge
+                result.back()[1] = max( result.back()[1], intervals[i][1] );
+            }
+            else
+            {
+                result.push_back( intervals[i] );
+            }
+        }
+
+        return result;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 33. Search in Rotated Sorted Array
+    //
+    // You must write an algorithm with O(log n) runtime complexity.
+    // This problem is quite hard among the medium-level.
+    //------------------------------------------------------------------------------------------------------------------------
+    /*
+    * Must use binary search. The crucial problem is how to determine which half we should keep.
+    * Here are all permutations. When the right-most number is larger than the middle one, the right half array is sorted.
+    * When it is not, the left half array is sorted.
+    0¡@¡@1¡@¡@2¡@ 4¡@¡@5¡@¡@6¡@¡@7
+    7¡@¡@0¡@¡@1¡@ 2¡@¡@4¡@¡@5¡@¡@6
+    6¡@¡@7¡@¡@0¡@ 1¡@¡@2¡@¡@4¡@¡@5
+    5¡@¡@6¡@¡@7¡@ 0¡@¡@1¡@¡@2¡@¡@4
+    4¡@¡@5¡@¡@6¡@ 7¡@¡@0¡@¡@1¡@¡@2
+    2¡@¡@4¡@¡@5¡@ 6¡@¡@7¡@¡@0¡@¡@1
+    1¡@¡@2¡@¡@4¡@ 5¡@¡@6¡@¡@7¡@¡@0
+    */
+
+    int search( vector<int>& nums, int target )
+    {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while( left <= right )
+        {
+            const int mid = left + ( right - left ) / 2;
+
+            if( nums[mid] == target ) // termination condition
+            {
+                return mid;
+            }
+            else if( nums[mid] < nums[right] ) // right half array is sorted.
+            {
+                // check if target falls in the right half array.
+                if( nums[mid] < target && target <= nums[right] )
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+            else
+            {
+                // left half array is sorted.
+                if( nums[left] <= target && target < nums[mid] )
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 81. Search in Rotated Sorted Array II
+    //
+    // Follow up: This problem is similar to Search in Rotated Sorted Array, but nums may contain duplicates. Would this affect the runtime complexity? How and why?
+    //
+    // Observe [3 1 1] and [1 1 3 1]. When middle is equal the right, the 3 could be on left or right.
+    // Solution: Decrement right until we find a differnt value.
+    //------------------------------------------------------------------------------------------------------------------------
+
+    int search_with_dup( vector<int>& nums, int target )
+    {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while( left <= right )
+        {
+            const int mid = left + ( right - left ) / 2;
+
+            if( nums[mid] == target ) // termination condition
+            {
+                return true;
+            }
+            else if( nums[mid] < nums[right] ) // right half array is sorted.
+            {
+                // check if target falls in the right half array.
+                if( nums[mid] < target && target <= nums[right] )
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+            else if( nums[mid] > nums[right] )
+            {
+                // left half array is sorted.
+                if( nums[left] <= target && target < nums[mid] )
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+            else
+            {
+                // nums[mid] == nums[right] and != target.
+                // We know nums[right] != target, so we can safely ignore them.
+                right--;
+            }
+        }
+        return false;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 240. Search a 2D Matrix II
+    //------------------------------------------------------------------------------------------------------------------------
+
+    // Implemented on Leetcode.
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 74. Search a 2D Matrix
+    //------------------------------------------------------------------------------------------------------------------------
+
+    // Implemented on Leetcode.
+
     void test_sorting_searching()
     {
         // Input: nums = [2, 0, 2, 1, 1, 0]
@@ -216,5 +485,68 @@ namespace SortingAndSearching
         testV = { 1, 2, 3, 1 };
         cout << "Result of Find Peak Element: " << findPeakElement( testV ) << endl;
 
+        // Input: nums = [5,7,7,8,8,10], target = 8
+        // Output: [3, 4]
+        // Input: nums = [1], target = 1
+        // Output : [0, 0]
+        //testV = { 5, 7, 7, 8, 8, 10 };
+        //int target = 8;
+        testV = { 1 };
+        int target = 1;
+
+        resultV = searchRange( testV, target );
+        cout << "Result of Find First and Last Position of Element in Sorted Array:\n";
+        LeetCodeUtil::printVector( resultV );
+        cout << endl;
+
+        // Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+        // Output: [[1, 6], [8, 10], [15, 18]]
+        #if( 1 )
+            vector<vector<int>> testVV = {
+                {8, 10},
+                {2, 6},
+                {15, 18},
+                {1, 3}
+            };
+        #else
+            vector<vector<int>> testVV = {
+                {1, 4},
+                {4, 5}
+            };
+        #endif
+
+        vector<vector<int>> resultVV = merge( testVV );
+        cout << "Result of Merge Intervals:\n";
+        LeetCodeUtil::printVectorOfVector( resultVV );
+        cout << endl;
+
+        // Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+        // Output: [[1, 2], [3, 10], [12, 16]]
+        testVV =
+        {
+            {1, 2},
+            {3, 5},
+            {6, 7},
+            {8, 10},
+            {12,16}
+        };
+        vector<int> newInterval = { 4, 8 };
+
+        resultVV = insert( testVV, newInterval );
+        cout << "Result of Insert Interval:\n";
+        LeetCodeUtil::printVectorOfVector( resultVV );
+        cout << endl;
+
+        // Input: nums = [4,5,6,7,0,1,2], target = 0
+        // Output: 4
+        testV = { 4, 5, 6, 7, 0, 1, 2 };
+        target = 0;
+        cout << "Search in Rotated Sorted Array: " << search( testV, target ) << endl;
+
+        // Input: nums = [2,5,6,0,0,1,2], target = 0
+        // Output: true
+        testV = { 2, 5, 6, 0, 0, 1, 2 };
+        target = 0;
+        cout << "Search in Rotated Sorted Array II: " << search_with_dup( testV, target ) << endl;
     }
 }
