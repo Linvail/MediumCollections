@@ -37,10 +37,11 @@ namespace LeetCodeUtil
         TreeNode* left;
         TreeNode* right;
 		TreeNode* next;
+		TreeNode* parent; // Used in 510. Inorder Successor in BST II.
 
-        TreeNode() : val( 0 ), left( nullptr ), right( nullptr ), next( nullptr ) {}
-        TreeNode( int x ) : val( x ), left( nullptr ), right( nullptr ), next( nullptr ) {}
-        TreeNode( int x, TreeNode* left, TreeNode* right ) : val( x ), left( left ), right( right ), next( nullptr ) {}
+        TreeNode() : val( 0 ), left( nullptr ), right( nullptr ), next( nullptr ), parent( nullptr ) {}
+        TreeNode( int x ) : val( x ), left( nullptr ), right( nullptr ), next( nullptr ), parent( nullptr ) {}
+        TreeNode( int x, TreeNode* left, TreeNode* right ) : val( x ), left( left ), right( right ), next( nullptr ), parent( nullptr ) {}
     };
 
 
@@ -118,5 +119,11 @@ namespace LeetCodeUtil
 
 	void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext = false );
 
-	void cleanUp( TreeNode* root );
+	void DeleteTree( TreeNode* root );
+
+	bool convertToVectorOfChar
+		(
+		const vector<string>& aInput,
+		vector<char>& aOutput
+		);
 }

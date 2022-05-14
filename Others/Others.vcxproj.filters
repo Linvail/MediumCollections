@@ -15,36 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TreesAndGraphs.cpp">
+    <ClCompile Include="Others.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Traversal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KthSmallestElementInABST.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MorrisTraversal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NumberOfIslands.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InorderSuccessorInBST.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TreesAndGraphs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MorrisTraversal.h">
+    <ClInclude Include="Others.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

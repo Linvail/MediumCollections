@@ -42,6 +42,9 @@
     <ClCompile Include="CountandSay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MissingRanges.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ArrayAndStrings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MissingRanges.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

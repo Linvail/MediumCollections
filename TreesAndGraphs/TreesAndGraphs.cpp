@@ -20,4 +20,6 @@ int main()
     test_kthSmallest();
 
     test_numIslands();
+
+    test_inorderSuccessor();
 }

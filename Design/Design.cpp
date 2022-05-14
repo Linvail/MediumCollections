@@ -149,12 +149,12 @@ namespace Design
         size_t start = 1;
         size_t end = data.find_first_of( ',' );
 
-        vector<int> nodeStrs;
+        vector<int> nodes;
 
         while( end <= string::npos )
         {
             string sub = data.substr( start, end - start );
-            nodeStrs.emplace_back( sub == "null" ? sInvalidValue : stoi( sub ) );
+            nodes.emplace_back( sub == "null" ? sInvalidValue : stoi( sub ) );
 
             if( end == string::npos )
             {
@@ -165,7 +165,7 @@ namespace Design
             end = data.find_first_of( ',', start);
         }
 
-        return createTree_omit_missing_children( nodeStrs );
+        return createTree_omit_missing_children( nodes );
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -289,6 +289,116 @@ namespace Design
         }
     };
 
+    //------------------------------------------------------------------------------------------------------------------------
+    // 251. Flatten 2D Vector
+    //
+    // Follow up: As an added challenge, try to code it using only iterators in C++ or iterators in Java.
+    //------------------------------------------------------------------------------------------------------------------------
+    class Vector2D
+    {
+    public:
+    public:
+        Vector2D(vector<vector<int>>& vec) : inited(false)
+        {
+            for (const auto& v : vec)
+            {
+                m_internal.insert(m_internal.end(), v.begin(), v.end());
+            }
+
+        }
+
+        int next()
+        {
+            if (!inited)
+            {
+                it = m_internal.begin();
+                inited = true;
+            }
+            else
+            {
+                it++;
+            }
+            return *it;
+        }
+
+        bool hasNext()
+        {
+            if (!inited)
+            {
+                return !m_internal.empty();
+            }
+            else
+            {
+                return m_internal.end() != it && m_internal.end() != std::next(it);
+            }
+        }
+
+    private:
+        vector<int> m_internal;
+        vector<int>::iterator it;
+        bool inited;
+    };
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 348. Design Tic-Tac-Toe
+    //
+    // Follow-up: Could you do better than O(n2) per move() operation?
+    //
+    // The straightfoward solution is to use a n*n table.
+    // To achieve better space complex, we can take advantage of the fact that we don't really need to know the arrangement
+    // of the marker made by players.  'O O X' and 'O X O' both stands for no-win. We only need to catch the cases of
+    // 'O O O' and 'X X X'.
+    // Therefore, we need rows[n] and columns[n] to record the situation of each row/column.
+    // Let player 1's marker be 1 and player's marker be -1. When rows[i] of any i is 3 or -3, we have the winner.
+    // And, we also need diagonal and antidiagonal.
+    //------------------------------------------------------------------------------------------------------------------------
+
+    class TicTacToe
+    {
+    public:
+        TicTacToe(int n)
+            : m_tableSize( n )
+            , m_antidiagonal( 0 )
+            , m_diagonal( 0 )
+            , m_columns( n )
+            , m_rows( n )
+        {
+        }
+
+        int move(int row, int col, int player)
+        {
+            int marker = player == 1 ? 1 : -1;
+
+            m_rows[row] += marker;
+            m_columns[col] += marker;
+            if (row == col)
+            {
+                m_diagonal += marker;
+            }
+            if (row == m_tableSize - col - 1)
+            {
+                m_antidiagonal += marker;
+            }
+
+            if (abs(m_rows[row]) == m_tableSize || abs(m_columns[col]) == m_tableSize ||
+                abs(m_diagonal) == m_tableSize || abs(m_antidiagonal) == m_tableSize)
+            {
+                return player;
+            }
+
+            return 0;
+        }
+
+    private:
+        size_t m_tableSize;
+
+        int m_antidiagonal;
+        int m_diagonal;
+
+        vector<int> m_columns;
+        vector<int> m_rows;
+    };
+
     void test_design()
     {
         // Input: root = [1,2,3,null,null,4,5]
@@ -301,7 +411,7 @@ namespace Design
         TreeNode* newNode = deserialize( testStr );
         cout << "Result of serialize: " << serialize( newNode ) << endl;
 
-        LeetCodeUtil::cleanUp( newNode );
+        LeetCodeUtil::DeleteTree( newNode );
 
         RandomizedCollectionDup collectDup;
 
@@ -312,5 +422,10 @@ namespace Design
         ret = collectDup.remove( 5 );
         ret = collectDup.remove( 5 );
         ret = collectDup.remove( 5 );
+
+        TicTacToe game(3);
+        cout << "Move of TicTacToe: " << game.move(1, 1, 2) << endl;
+        cout << "Move of TicTacToe: " << game.move(0, 2, 2) << endl;
+        cout << "Move of TicTacToe: " << game.move(2, 0, 2) << endl;
     }
 }

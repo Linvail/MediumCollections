@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <map>
 #include <queue>
 
 namespace SortingAndSearching
@@ -428,6 +429,59 @@ namespace SortingAndSearching
     }
 
     //------------------------------------------------------------------------------------------------------------------------
+    // 253. Meeting Rooms II
+    //
+    // Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of
+    // conference rooms required.
+    // 1 <= intervals.length <= 10^4
+    // 0 <= starti < endi <= 10^6
+    //------------------------------------------------------------------------------------------------------------------------
+    int minMeetingRooms(vector<vector<int>>& intervals)
+    {
+        // The CompareTwoVector is actually not necessary, the default comparsion is fine.
+        sort(intervals.begin(), intervals.end(), [](const vector<int>& aLeft, const vector<int>& aRight) { return aLeft[0] < aRight[0]; });
+
+        // Keep the end time of an internal. The smallest is on top.
+        priority_queue<int, vector<int>, greater<int>> rooms;
+
+        for (const auto& interval : intervals)
+        {
+            if (!rooms.empty() && rooms.top() <= interval[0])
+            {
+                rooms.pop();
+            }
+            rooms.push(interval[1]);
+        }
+
+        return rooms.size();
+    }
+
+    // We use map (the ordered one) to store the start time and end time of all intervals.
+    int minMeetingRooms_no_queue(vector<vector<int>>& intervals)
+    {
+        // <time, marker of enter or exit the room>
+        map<int, int> times;
+
+        // { {7, 10}, {2 ,4} } becomes 2(1) 4(-1) 7(1) 10(-1)
+        for (const auto& interval : intervals)
+        {
+            times[interval[0]]++; // Meaning we need a room!
+            times[interval[1]]--; // Meaning we don't need the room anymore.
+        }
+
+        int roomNeeded = 0;
+        int maxRoomsEverNeeded = 0;
+
+        for (const auto& time : times)
+        {
+            roomNeeded += time.second;
+            maxRoomsEverNeeded = max(roomNeeded, maxRoomsEverNeeded);
+        }
+
+        return maxRoomsEverNeeded;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
     // 240. Search a 2D Matrix II
     //------------------------------------------------------------------------------------------------------------------------
 
@@ -542,11 +596,22 @@ namespace SortingAndSearching
         testV = { 4, 5, 6, 7, 0, 1, 2 };
         target = 0;
         cout << "Search in Rotated Sorted Array: " << search( testV, target ) << endl;
+        cout << endl;
 
         // Input: nums = [2,5,6,0,0,1,2], target = 0
         // Output: true
         testV = { 2, 5, 6, 0, 0, 1, 2 };
         target = 0;
         cout << "Search in Rotated Sorted Array II: " << search_with_dup( testV, target ) << endl;
+        cout << endl;
+
+        // Input: intervals = [[0,30],[5,10],[15,20]]
+        // Output: 2
+        resultVV = { {0, 30}, {5 ,10}, {15, 20} };
+        // Input: intervals = [[7,10],[2,4]]
+        // Output: 1
+        //resultVV = { {7, 10}, {2 ,4} };
+        cout << "Result of Meeting Rooms II: " << minMeetingRooms_no_queue(resultVV) << endl;
+        cout << endl;
     }
 }

@@ -8,6 +8,7 @@
 
 #include "LeetCodeUtil.h"
 #include "ArrayAndStrings.h"
+#include "MissingRanges.h"
 #include "ThreeSum.h"
 #include "TwoSumSorted.h"
 
@@ -32,4 +33,6 @@ int main()
 	#endif
 
 	test_countAndSay();
+
+	test_missingRanges();
 }

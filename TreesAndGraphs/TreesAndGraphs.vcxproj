@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuildTree.cpp" />
+    <ClCompile Include="InorderSuccessorInBST.cpp" />
     <ClCompile Include="KthSmallestElementInABST.cpp" />
     <ClCompile Include="MorrisTraversal.cpp" />
     <ClCompile Include="NumberOfIslands.cpp" />

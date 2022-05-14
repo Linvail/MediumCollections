@@ -588,7 +588,7 @@ namespace TreesAndGraphs
         printVectorOfVector( resultVV );
         cout << endl;
 
-        cleanUp( testData );
+        DeleteTree( testData );
 
         //vector<string> specialTree = { "2", "2", "5", "null", "null", "5", "7" }; // 5
         //vector<string> specialTree = { "2", "2", "2" }; // -1
@@ -596,13 +596,13 @@ namespace TreesAndGraphs
         testData = levelOrderCreateTree( specialTree );
         int secondMinimum = findSecondMinimumValue( testData );
         cout << "Result of findSecondMinimumValue: " << secondMinimum << endl;
-        cleanUp( testData );
+        DeleteTree( testData );
 
         specialTree = { "1", "1", "3", "1", "1", "3", "4", "3", "1", "1", "1", "3", "8", "4", "8", "3", "3", "1", "6", "2", "1" };
         testData = levelOrderCreateTree( specialTree );
         secondMinimum = findSecondMinimumValue( testData );
         cout << "Result of findSecondMinimumValue: " << secondMinimum << endl; // 2
-        cleanUp( testData );
+        DeleteTree( testData );
 
         cout << "\n";
 
@@ -617,7 +617,7 @@ namespace TreesAndGraphs
         recoverTree( testData );
         cout << "Result of recoverTree: " << endl;
         printTreeLevelOrder( testData );
-        cleanUp( testData );
+        DeleteTree( testData );
 
         cout << "\n";
 
@@ -638,7 +638,7 @@ namespace TreesAndGraphs
         // Use debugger to examine the result.
         cout << "Result of Populating Next Right Pointers in Each Node:";
         printTreeLevelOrder( nodeResult, true );
-        cleanUp( nodeResult );
+        DeleteTree( nodeResult );
 
         cout << "\n";
 
@@ -650,6 +650,6 @@ namespace TreesAndGraphs
         cout << "Result of Populating Next Right Pointers in Each Node II:";
         // Use debugger to examine the result.
         printTreeLevelOrder( nodeResult, true );
-        cleanUp( nodeResult );
+        DeleteTree( nodeResult );
     }
 }

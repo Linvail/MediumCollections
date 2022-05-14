@@ -8,63 +8,60 @@ namespace TreesAndGraphs
 {
     using namespace std;
 
-    // { "4", "null", "6", "5", "7" };
-    // { "4", "2", "6", "1", "3", "5", "7" };
-    void createTree_omit_missing_children( TreeNode* node, size_t level, vector<string>& arr )
+    static const int sInvalidValue = INT_MAX;
+
+    TreeNode* createTree_omit_missing_children
+        (
+        const vector<int>& aNodeArray
+        )
     {
-        if( node != nullptr )
+        TreeNode* root = new TreeNode( aNodeArray[0] );
+        int start = 1;
+
+        vector<TreeNode*> prevLevel;
+        prevLevel.push_back( root );
+
+        while( !prevLevel.empty() && start < aNodeArray.size() )
         {
-            const size_t leftIndex = level * 2 + 1;
-            const size_t rightIndex = leftIndex + 1;
-
-            if( leftIndex < arr.size() )
+            vector<TreeNode*> thisLevel;
+            for( auto node : prevLevel )
             {
-                node->left = arr[leftIndex] == "null" ? nullptr : new TreeNode( stoi( arr[leftIndex] ) );
-            }
+                if( aNodeArray[start] != sInvalidValue )
+                {
+                    node->left = new TreeNode( aNodeArray[start] );
+                    node->left->parent = node;
+                    thisLevel.push_back( node->left );
+                }
+                start++;
+                if( start >= aNodeArray.size() )
+                {
+                    break;
+                }
 
-            if( rightIndex < arr.size() )
-            {
-                node->right = arr[rightIndex] == "null" ? nullptr : new TreeNode( stoi( arr[rightIndex] ) );
-            }
+                if( aNodeArray[start] != sInvalidValue )
+                {
+                    node->right = new TreeNode( aNodeArray[start] );
+                    node->right->parent = node;
+                    thisLevel.push_back( node->right );
+                }
+                start++;
 
-            if( node->left )
-            {
-                createTree_omit_missing_children( node->left, leftIndex, arr );
+                if( start >= aNodeArray.size() )
+                {
+                    break;
+                }
             }
-            if( node->right )
-            {
-                createTree_omit_missing_children(
-                    node->right,
-                    node->left ? rightIndex : rightIndex - 1,
-                    arr );
-            }
-
+            swap( prevLevel, thisLevel );
         }
-    }
 
-    void createTree( TreeNode* node, int i, vector<string>& arr )
-    {
-        if( node != nullptr )
-        {
-            if( 2 * i + 1 < arr.size() )
-            {
-                node->left = arr[2 * i + 1] == "null" ? nullptr : new TreeNode( stoi( arr[2 * i + 1] ) );
-                createTree( node->left, 2 * i + 1, arr );
-            }
-
-            if( 2 * i + 2 < arr.size() )
-            {
-                node->right = arr[2 * i + 2] == "null" ? nullptr : new TreeNode( stoi( arr[2 * i + 2] ) );
-                createTree( node->right, 2 * i + 2, arr );
-            }
-        }
+        return root;
     }
 
     //! Create a tree from level-order arrangement vector.
+    //! Note that the value of the node cannot be INT_MAX.
     TreeNode* levelOrderCreateTree
         (
-        vector<string>& arr,
-        bool aOmitMissingChildren
+        vector<string>& arr
         )
     {
         if( arr.size() == 0 )
@@ -72,17 +69,13 @@ namespace TreesAndGraphs
             return nullptr;
         }
 
-        TreeNode* head = new TreeNode( stoi( arr[0] ) );
-        if( aOmitMissingChildren )
+        vector<int> nodes;
+        for( auto& str : arr )
         {
-            createTree_omit_missing_children( head, 0, arr );
-        }
-        else
-        {
-            createTree( head, 0, arr );
+            nodes.push_back( str == "null" ? INT_MAX : stoi(str) );
         }
 
-        return head;
+        return createTree_omit_missing_children( nodes );
     }
 
     // Having preorder and postorder is not enough to build one unique binary tree.
@@ -360,7 +353,7 @@ namespace TreesAndGraphs
 
         cout << "Result of Construct Binary Tree from Preorder and Inorder Traversal:" << endl;
         printTreeLevelOrder( result );
-        cleanUp( result );
+        DeleteTree( result );
         mInorderIndex.clear();
 
         // Input: inorder = [9, 3, 15, 20, 7], postorder = [9, 15, 7, 20, 3]
@@ -370,7 +363,7 @@ namespace TreesAndGraphs
 
         cout << "Result of Construct Binary Tree from Inorder and Postorder Traversal:" << endl;
         printTreeLevelOrder( result );
-        cleanUp( result );
+        DeleteTree( result );
 
         // 889. Construct Binary Tree from Preorder and Postorder Traversal
         // Input: preorder = [1, 2, 4, 5, 3, 6, 7], postorder = [4, 5, 2, 6, 7, 3, 1]
@@ -380,7 +373,7 @@ namespace TreesAndGraphs
         result = constructFromPrePost( preorder, postorder );
         cout << "Construct Binary Tree from Preorder and Postorder Traversal:" << endl;
         printTreeLevelOrder( result );
-        cleanUp( result );
+        DeleteTree( result );
 
         // Input: preorder = [8,5,1,7,10,12]
         // Output: [8, 5, 10, 1, 7, null, 12]
@@ -388,7 +381,7 @@ namespace TreesAndGraphs
         result = bstFromPreorder( preorder );
         cout << "Construct Binary Search Tree from Preorder Traversal:" << endl;
         printTreeLevelOrder( result );
-        cleanUp( result );
+        DeleteTree( result );
 
         cout << endl;
     }

@@ -261,13 +261,29 @@ namespace LeetCodeUtil
         cout << "]" << endl;
     }
 
-    void cleanUp( TreeNode* root )
+    void DeleteTree( TreeNode* root )
     {
         if( root )
         {
-            cleanUp( root->left );
-            cleanUp( root->right );
+            DeleteTree( root->left );
+            DeleteTree( root->right );
         }
         delete root;
+    }
+
+    bool convertToVectorOfChar
+        (
+        const vector<string>& aInput,
+        vector<char>& aOutput
+        )
+    {
+        aOutput.clear();
+
+        for( auto& str : aInput )
+        {
+            aOutput.push_back( str[0] );
+        }
+
+        return aOutput.size() > 0;
     }
 }

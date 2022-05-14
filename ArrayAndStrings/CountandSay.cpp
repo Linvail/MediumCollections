@@ -5,10 +5,10 @@
 #include <vector>
 #include <string>
 
-using namespace LeetCodeUtil;
-
 namespace ArrayAndStrings
 {
+    using namespace LeetCodeUtil;
+
     // 1 <= n <= 30
     // To generate the nth term, just count and say the n-1th term.
     // Input: n = 4
