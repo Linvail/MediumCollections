@@ -151,6 +151,9 @@
   <ItemGroup>
     <ClInclude Include="Others.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Others.cpp.vsspell" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

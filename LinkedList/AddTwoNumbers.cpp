@@ -8,9 +8,11 @@ using namespace LeetCodeUtil;
 
 namespace LinkedList
 {
-    // Consider the case that two list do not have the same length.
-    // 2 -> 4 -> 3
-    // 5 -> 6 -> 4
+    //-----------------------------------------------------------------------------------
+    // 2. Add Two Numbers
+    //-----------------------------------------------------------------------------------
+    //
+    // Need to consider the case that two list do not have the same length.
     ListNode* addTwoNumbers( ListNode* l1, ListNode* l2 )
     {
         ListNode* result = new ListNode( -1 ); // This should not change.
@@ -23,7 +25,6 @@ namespace LinkedList
             const int sum = val1 + val2 + ( carry ? 1 : 0 );
             carry = sum >= 10;
 
-            ListNode* newNode = new ListNode( carry ? sum - 10 : sum );
             current->next = new ListNode( carry ? sum - 10 : sum );
             current = current->next;
 
