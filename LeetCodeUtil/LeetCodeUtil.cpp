@@ -177,6 +177,94 @@ namespace LeetCodeUtil
         return head;
     }
 
+    TreeNode* createTree_omit_missing_children
+        (
+        const vector<string>& aNodeArray
+        )
+    {
+        TreeNode* root = new TreeNode(stoi(aNodeArray[0]));
+        int start = 1;
+
+        vector<TreeNode*> prevLevel;
+        prevLevel.push_back(root);
+
+        while (!prevLevel.empty() && start < aNodeArray.size())
+        {
+            vector<TreeNode*> thisLevel;
+            for (auto node : prevLevel)
+            {
+                if (aNodeArray[start] != "null")
+                {
+                    node->left = new TreeNode(stoi(aNodeArray[start]));
+                    thisLevel.push_back(node->left);
+                }
+                start++;
+                if (start >= aNodeArray.size())
+                {
+                    break;
+                }
+
+                if (aNodeArray[start] != "null")
+                {
+                    node->right = new TreeNode(stoi(aNodeArray[start]));
+                    thisLevel.push_back(node->right);
+                }
+                start++;
+
+                if (start >= aNodeArray.size())
+                {
+                    break;
+                }
+            }
+            swap(prevLevel, thisLevel);
+        }
+
+        return root;
+    }
+
+    TreeNode* BuildTreeFromLevelOrderString(const string& data)
+    {
+        if (data.empty() || data[0] != '[' || data.back() != ']' || data.length() < 3)
+        {
+            return nullptr;
+        }
+
+        size_t start = 1;
+        size_t end = data.find_first_of(',');
+
+        vector<string> nodes;
+
+        while (end <= string::npos)
+        {
+            string sub = data.substr(start, end - start);
+
+            while (sub[0] == ' ')
+            {
+                sub = sub.substr(1, sub.size() - 1);
+            }
+            if (sub[sub.size() - 1] == ']')
+            {
+                sub.pop_back();
+            }
+            while (sub[sub.size() - 1] == ' ')
+            {
+                sub.pop_back();
+            }
+
+            nodes.emplace_back(sub);
+
+            if (end == string::npos)
+            {
+                break;
+            }
+
+            start = end + 1;
+            end = data.find_first_of(',', start);
+        }
+
+        return createTree_omit_missing_children(nodes);
+    }
+
     void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext )
     {
         vector<string> dataToPrint;
