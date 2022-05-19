@@ -117,6 +117,10 @@ namespace LeetCodeUtil
 
 	ListNode* buildLinkedListFromVector( const vector<int>& aInput );
 
+	void BuildIntVectorFromString(const string& data, vector<int>* result);
+
+	void BuildIntMatrixFromString(const string& data, vector<vector<int>>* matrix);
+
 	TreeNode* BuildTreeFromLevelOrderString(const string& data);
 
 	void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext = false );

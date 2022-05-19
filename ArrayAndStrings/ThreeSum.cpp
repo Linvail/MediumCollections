@@ -24,34 +24,35 @@ namespace ArrayAndStrings
             return result;
         }
 
-        //LeetCodeUtil::quickSort_std_async( nums, 0, len - 1 );
         std::sort( nums.begin(), nums.end() );
 
-        // { -1, 0, 1, 2, -1, -4 }
-        int i = 0;
-        for( ; i < len - 2; ++i )
+        for(int i = 0; i < len - 2; ++i )
         {
+			// If meet identical number, skip it (except the 1st number).
             if( i != 0 && nums[i] == nums[i - 1] )
             {
                 continue;
             }
 
+			// Two pointers. Scan from left and right toward the middle.
             int j = i + 1;
-            int k = len - 1;
-
+			int k = len - 1;
             while( j < k )
             {
                 const int sum = nums[j] + nums[k] + nums[i];
+				if (sum == 0)
+				{
+					vector<int> match(3);
+					match[0] = nums[i];
+					match[1] = nums[j];
+					j++;
+					match[2] = nums[k];
+					k--;
+					result.push_back(match);
 
-                if( sum == 0 )
-                {
-                    vector<int> match( 3 );
-                    match[0] = nums[i];
-                    match[1] = nums[j++];
-                    match[2] = nums[k--];
-                    result.push_back( match );
-
-                    // deal with the case : { - 2, 0, 0, 2, 2 }
+					// Deal the identical numbers, like { -2, 0, 0, 2, 2 }.
+					// We just tried to move j to the right. Our intention is to test next distinct number.
+					// If the next number is the same as the previous number, we should move again.
                     while( j < k && nums[j] == nums[j - 1] )
                     {
                         j++;
@@ -72,7 +73,6 @@ namespace ArrayAndStrings
             }
         }
 
-
         return result;
     }
 
@@ -86,14 +86,10 @@ namespace ArrayAndStrings
 
 		#if( !TEST_BIG )
 
-			// Output: [[-1,-1,2],[-1,0,1]]
-			//vector<int> testData = { -1, 0, 1, 2, -1, -4 };
-
-			//vector<int> testData = { - 2, 0, 0, 2, 2 };
-			//vector<int> testData = { 0, 0, 0 };
-		testData.push_back( { -1, 0, 1, 2, -1, -4 } );
-		testData.push_back( { - 2, 0, 0, 2, 2 } );
-		testData.push_back( { 0, 0, 0 } );
+			testData.push_back( { -1, 0, 1, 2, -1, -4 } ); // Expect: [[-1, -1, 2], [-1, 0, 1]]
+			testData.push_back( { - 2, 0, 0, 2, 2 } ); // Expect: [[-2,0,2]]
+			testData.push_back( { 0, 0, 0 } );
+			testData.push_back({ -2, 0, 1, 1, 2 }); // Expect: [[-2, 0, 2], [-2, 1, 1]]
 
 		#else
 

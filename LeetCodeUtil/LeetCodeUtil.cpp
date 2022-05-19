@@ -7,6 +7,7 @@
 #include <future>
 #include <queue>
 #include <string>
+#include <sstream>
 
 #include "LeetCodeUtil.h"
 
@@ -175,6 +176,64 @@ namespace LeetCodeUtil
         }
 
         return head;
+    }
+
+    // Input: [1, 2], or [1,2,3]
+    // Output: vector<int> with content 1, 2.
+    void BuildIntVectorFromString(const string& data, vector<int>* result)
+    {
+        if (!result)
+        {
+            return;
+        }
+
+        string raw = data.substr(1, data.size() - 2);
+        istringstream is(raw);
+        string sub;
+        while (getline(is, sub, ','))
+        {
+            while (sub[0] == ' ')
+            {
+                sub = sub.substr(1, sub.size() - 1);
+            }
+            while (sub[sub.size() - 1] == ' ')
+            {
+                sub.pop_back();
+            }
+            result->push_back(stoi(sub));
+        }
+    }
+
+    // Input: [[0,0],[2,0],[1,1],[2,1],[2,2]]
+    // vector<vector<int>>
+    void BuildIntMatrixFromString(const string& data, vector<vector<int>>* matrix)
+    {
+        if (!matrix)
+        {
+            return;
+        }
+
+        matrix->clear();
+
+        string raw = data.substr(1, data.size() - 2);
+        istringstream is(raw);
+        string sub;
+        while (getline(is, sub, ']'))
+        {
+            while (sub.front() == ' ' || sub.front() == ',')
+            {
+                sub.erase(0, 1);
+            }
+            while (sub.back() == ' ')
+            {
+                sub.pop_back();
+            }
+            sub.push_back(']');
+
+            vector<int> row;
+            BuildIntVectorFromString(sub, &row);
+            matrix->push_back(row);
+        }
     }
 
     TreeNode* createTree_omit_missing_children

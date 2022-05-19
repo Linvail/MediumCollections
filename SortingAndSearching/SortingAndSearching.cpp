@@ -607,7 +607,8 @@ namespace SortingAndSearching
 
         // Input: intervals = [[0,30],[5,10],[15,20]]
         // Output: 2
-        resultVV = { {0, 30}, {5 ,10}, {15, 20} };
+        LeetCodeUtil::BuildIntMatrixFromString("[[0,30],[5,10],[15,20]]", &resultVV);
+        //
         // Input: intervals = [[7,10],[2,4]]
         // Output: 1
         //resultVV = { {7, 10}, {2 ,4} };

@@ -16,7 +16,7 @@ using namespace ArrayAndStrings;
 
 int main()
 {
-	#if 0
+
 	test_threeSum();
 
 	test_setZeroes();
@@ -30,7 +30,6 @@ int main()
 	test_longestPalindrome();
 
 	test_increasingTriplet();
-	#endif
 
 	test_countAndSay();
 
