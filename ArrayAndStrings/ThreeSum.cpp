@@ -76,6 +76,85 @@ namespace ArrayAndStrings
         return result;
     }
 
+	//--------------------------------------------------------------------------------------
+	// 18. 4Sum (Medium)
+	//--------------------------------------------------------------------------------------
+	vector<vector<int>> fourSum(vector<int>& nums, int target)
+	{
+		vector<vector<int>> result;
+		const size_t len = nums.size();
+
+		if (len < 4)
+		{
+			return result;
+		}
+
+		std::sort(nums.begin(), nums.end());
+
+		// [0, 1, 2, 3]
+		for (int i = 0; i < len - 3; ++i)
+		{
+			// If meet identical number, skip it (except the 1st number).
+			if (i > 0 && nums[i] == nums[i - 1])
+			{
+				continue;
+			}
+
+			for (int j = i + 1; j < len - 2; ++j)
+			{
+				// If meet identical number, skip it.
+				if (j > i + 1 && nums[j] == nums[j - 1])
+				{
+					continue;
+				}
+
+				// Two pointers. Scan from left and right toward the middle.
+				int left = j + 1;
+				int right = len - 1;
+				while (left < right)
+				{
+					const long long sum = static_cast<long long>( nums[i] + nums[j] ) + static_cast<long long>( nums[left] + nums[right] );
+
+					if (sum == target)
+					{
+						result.emplace_back();
+						result.back().push_back(nums[i]);
+						result.back().push_back(nums[j]);
+						result.back().push_back(nums[left]);
+						result.back().push_back(nums[right]);
+
+						// Deal the identical numbers, like { -2, 0, 0, 2, 2 }.
+						// We just tried to move j to the right. Our intention is to test next distinct number.
+						// If the next number is the same as the previous number, we should move again.
+						left++;
+						while (left < right && nums[left] == nums[left - 1])
+						{
+							left++;
+						}
+						right--;
+						while (left < right && nums[right] == nums[right + 1])
+						{
+							right--;
+						}
+					}
+					else if (sum > target)
+					{
+						right--;
+					}
+					else
+					{
+						left++;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	//--------------------------------------------------------------------------------------
+	// Function to test all questions.
+	//--------------------------------------------------------------------------------------
     void test_threeSum()
     {
 		cout << "\nTesting threeSum..." << endl;
@@ -189,8 +268,26 @@ namespace ArrayAndStrings
 		auto t2 = high_resolution_clock::now();
 
 		auto ms_int = duration_cast<milliseconds>( t2 - t1 );
-		std::cout << "ArrayAndStrings::threeSum: " << ms_int.count() << "ms\n";
+		std::cout << "ArrayAndStrings::threeSum: " << ms_int.count() << "ms\n\n";
 
 
+		// 18. 4Sum
+		// Input: nums = [1,0,-1,0,-2,2], target = 0
+		// Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+
+		// Input: [-2, -1, -1, 1, 1, 2, 2], target = 0
+		// Output: [[-2, -1, 1, 2], [-1, -1, 1, 1]]
+
+		// Input: [-1,0,1,2,-1,-4], target = -1;
+		// Output: [[-4, 0, 1, 2], [-1, -1, 0, 1]]
+
+		// Input: [1000000000,1000000000,1000000000,1000000000], target = 0
+		// Output:
+
+		vector<int> data = { 1000000000,1000000000,1000000000,1000000000 };
+		auto result = ArrayAndStrings::fourSum(data, -1);
+		std::cout << "ArrayAndStrings::fourSum: " << endl;
+		LeetCodeUtil::printVectorOfVector(result);
+		cout << "\n";
     }
 }
