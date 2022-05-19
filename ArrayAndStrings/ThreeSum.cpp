@@ -1,10 +1,11 @@
+#include "LeetCodeUtil.h"
+#include "ThreeSum.h"
+
 #include <algorithm>    // std::sort
+#include <chrono>
 #include <map>
 #include <set>
-#include <chrono>
-
-#include "ThreeSum.h"
-#include "LeetCodeUtil.h"
+#include <unordered_map>
 
 namespace ArrayAndStrings
 {
@@ -153,6 +154,53 @@ namespace ArrayAndStrings
 	}
 
 	//--------------------------------------------------------------------------------------
+	// 454. 4Sum II (Medium)
+	//
+	// We can re-use the idea that we used in 2Sum.
+	// Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that:
+	// 0 <= i, j, k, l < n
+	// nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
+	//--------------------------------------------------------------------------------------
+
+	int fourSumCount
+		(
+		vector<int>& nums1,
+		vector<int>& nums2,
+		vector<int>& nums3,
+		vector<int>& nums4
+		)
+	{
+		// Mapping every possible sum of the elements in nums1 and nums2 to its occurrence
+		// count. For example, 3 occurs 4 times, then sumOf1and2[3] = 4.
+		unordered_map<int, size_t> sumOf1and2;
+		unordered_map<int, size_t> sumOf3and4;
+
+		const int n = nums1.size();
+
+		for (int i = 0; i < n; ++i)
+		{
+			for (int j = 0; j < n; ++j)
+			{
+				sumOf1and2[nums1[i] + nums2[j]]++;
+				sumOf3and4[nums3[i] + nums4[j]]++;
+			}
+		}
+
+		int result = 0;
+		for (const auto& twoSum : sumOf1and2)
+		{
+			const auto iter = sumOf3and4.find(-twoSum.first);
+			if (iter != sumOf3and4.end())
+			{
+				// If 3 occurs twice and -3 occurs twice. We have 2 * 2 = 4 combinations.
+				result += twoSum.second * iter->second;
+			}
+		}
+
+		return result;
+	}
+
+	//--------------------------------------------------------------------------------------
 	// Function to test all questions.
 	//--------------------------------------------------------------------------------------
     void test_threeSum()
@@ -286,8 +334,18 @@ namespace ArrayAndStrings
 
 		vector<int> data = { 1000000000,1000000000,1000000000,1000000000 };
 		auto result = ArrayAndStrings::fourSum(data, -1);
-		std::cout << "ArrayAndStrings::fourSum: " << endl;
+		std::cout << "Result of 4Sum: " << endl;
 		LeetCodeUtil::printVectorOfVector(result);
+		cout << "\n";
+
+		// 454. 4Sum II (Medium)
+		// Input: nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+		// Output: 2
+		vector<int> intV1 = { 1, 2 };
+		vector<int> intV2 = { -2, -1 };
+		vector<int> intV3 = { -1, 2 };
+		vector<int> intV4 = { 0, 2 };
+		std::cout << "Result of 4Sum II: " << fourSumCount(intV1, intV2, intV3, intV4) << endl;
 		cout << "\n";
     }
 }
