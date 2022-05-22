@@ -3,8 +3,10 @@
 
 #include <string>
 #include <queue>
+#include <stack>
 #include <unordered_map>
 #include <unordered_set>
+#include <sstream>
 
 namespace Design
 {
@@ -12,54 +14,115 @@ namespace Design
     using namespace LeetCodeUtil;
 
     //------------------------------------------------------------------------------------------------------------------------
-    // 297. Serialize and Deserialize Binary Tree (Hard)
+    // 449. Serialize and Deserialize BST
+    // The encoded string should be as compact as possible.
+    // 0 <= Node.val <= 10^4
+    //
+    // BST is just a special case of binary tree. So the solution of 297 also works for this question.
+    // However, serialization for BST can use less storage because we can use postorder instead of level order.
+    // For BT, we need preorder/postorder AND inorder to constructed the tree (or level order).
+    // However, for BST, we just need preorder or postorder because inorder can be obtained by sorting preorder or postorder.
+    //
     //------------------------------------------------------------------------------------------------------------------------
-    static const int sInvalidValue = INT_MAX;
-
-    TreeNode* createTree_omit_missing_children
-        (
-        const vector<int>& aNodeArray
-        )
+    class Codec
     {
-        TreeNode* root = new TreeNode( aNodeArray[0] );
-        int start = 1;
+    public:
 
-        vector<TreeNode*> prevLevel;
-        prevLevel.push_back( root );
-
-        while( !prevLevel.empty() && start < aNodeArray.size() )
+        class BuildBst
         {
-            vector<TreeNode*> thisLevel;
-            for( auto node : prevLevel )
+            TreeNode* bstFromPreorder_helper
+                (
+                const vector<int>& preorder,
+                const int aLeft,
+                const int aRight
+                )
             {
-                if( aNodeArray[start] != sInvalidValue )
+                if (aLeft > aRight)
                 {
-                    node->left = new TreeNode( aNodeArray[start] );
-                    thisLevel.push_back( node->left );
-                }
-                start++;
-                if( start >= aNodeArray.size() )
-                {
-                    break;
+                    return nullptr;
                 }
 
-                if( aNodeArray[start] != sInvalidValue )
-                {
-                    node->right = new TreeNode( aNodeArray[start] );
-                    thisLevel.push_back( node->right );
-                }
-                start++;
+                TreeNode* newRoot = new TreeNode(preorder[aLeft]);
 
-                if( start >= aNodeArray.size() )
+                // Try to find the first number that is greater than root.
+                // It is the start point of the right tree.
+                int i = aLeft + 1;
+                for (; i <= aRight; ++i)
                 {
-                    break;
+                    if (preorder[i] > preorder[aLeft])
+                    {
+                        break;
+                    }
+                }
+
+                newRoot->left = bstFromPreorder_helper(preorder, aLeft + 1, i - 1);
+                newRoot->right = bstFromPreorder_helper(preorder, i, aRight);
+
+                return newRoot;
+            }
+
+        public:
+            // 1008. Construct Binary Search Tree from Preorder Traversal(Medium).
+            TreeNode* bstFromPreorder(vector<int>& preorder)
+            {
+                return bstFromPreorder_helper(preorder, 0, preorder.size() - 1);
+            }
+        };
+
+        // Encodes a tree to a single string.
+        string serialize(TreeNode* root)
+        {
+            // Do preorder traversal.
+            TreeNode* current = root;
+            stack<TreeNode*> nodeStack;
+            ostringstream os;
+
+            while (current || !nodeStack.empty())
+            {
+                if (current)
+                {
+                    // Use space as the delimiter because we want to use istringstream to read it.
+                    os << current->val << " ";
+                    nodeStack.push(current);
+                    current = current->left;
+                }
+                else
+                {
+                    current = nodeStack.top();
+                    nodeStack.pop();
+                    current = current->right;
                 }
             }
-            swap( prevLevel, thisLevel );
+
+            return os.str();
         }
 
-        return root;
-    }
+        // Decodes your encoded data to tree.
+        TreeNode* deserialize(string data)
+        {
+            if (data.empty())
+            {
+                return nullptr;
+            }
+            vector<int> nodeValue;
+            istringstream is(data);
+            string val;
+            while (( is >> val ))
+            {
+                nodeValue.push_back(stoi(val));
+            }
+
+            BuildBst builder;
+            return builder.bstFromPreorder(nodeValue);
+        }
+    };
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 297. Serialize and Deserialize Binary Tree (Hard)
+    //
+    // Use level-order
+    //------------------------------------------------------------------------------------------------------------------------
+    static const int sInvalidValue = INT_MAX;
 
     // Encodes a tree to a single string.
     string serialize( TreeNode* aRoot )
@@ -70,40 +133,17 @@ namespace Design
 
         while( !nodeQueue.empty() )
         {
-            const int len = nodeQueue.size();
+            TreeNode* cur = nodeQueue.front();
+            nodeQueue.pop();
 
-            for( int i = 0; i < len; ++i )
+            string data = cur ? to_string( cur->val ) : "null";
+            dataToPrint.push_back( data );
+
+            if( cur )
             {
-                TreeNode* cur = nodeQueue.front();
-                nodeQueue.pop();
-
-                string data = cur ? to_string( cur->val ) : "null";
-                dataToPrint.push_back( data );
-
-                if( !cur )
-                {
-                    continue;
-                }
-
-                if( cur->left )
-                {
-                    nodeQueue.push( cur->left );
-                }
-                else
-                {
-                    nodeQueue.push( nullptr );
-                }
-
-                if( cur->right )
-                {
-                    nodeQueue.push( cur->right );
-                }
-                else
-                {
-                    nodeQueue.push( nullptr );
-                }
+                nodeQueue.push(cur->left);
+                nodeQueue.push(cur->right);
             }
-
         }
 
         // Remove "null" in the tail.
@@ -124,7 +164,6 @@ namespace Design
         for( int i = 0; i < dataToPrint.size(); ++i )
         {
             result += dataToPrint[i];
-
             if( i != dataToPrint.size() - 1 )
             {
                 result.push_back(',');
@@ -165,7 +204,33 @@ namespace Design
             end = data.find_first_of( ',', start);
         }
 
-        return createTree_omit_missing_children( nodes );
+        TreeNode* root = new TreeNode(nodes[0]);
+        queue<TreeNode*> nodeQueue;
+        nodeQueue.push(root);
+        const size_t nodeSize = nodes.size();
+        start = 1;
+
+        while (!nodeQueue.empty() && start < nodeSize)
+        {
+            TreeNode* node = nodeQueue.front();
+            nodeQueue.pop();
+
+            if (start < nodeSize && nodes[start] != sInvalidValue)
+            {
+                node->left = new TreeNode(nodes[start]);
+                nodeQueue.push(node->left);
+            }
+            start++;
+
+            if (start < nodeSize && nodes[start] != sInvalidValue)
+            {
+                node->right = new TreeNode(nodes[start]);
+                nodeQueue.push(node->right);
+            }
+            start++;
+        }
+
+        return root;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -403,9 +468,9 @@ namespace Design
     {
         // Input: root = [1,2,3,null,null,4,5]
         // Output: [1, 2, 3, null, null, 4, 5]
-        //string testStr = "[1,2,3,null,null,4,5]";
+        string testStr = "[1,2,3,null,null,4,5]";
         //string testStr = "[1,2,3,null,null,4,5,6,7]";
-        string testStr = "[1,2]";
+        //string testStr = "[1,2]";
 
         cout << "Call deserialize for: " << testStr << endl;
         TreeNode* newNode = deserialize( testStr );
@@ -427,5 +492,22 @@ namespace Design
         cout << "Move of TicTacToe: " << game.move(1, 1, 2) << endl;
         cout << "Move of TicTacToe: " << game.move(0, 2, 2) << endl;
         cout << "Move of TicTacToe: " << game.move(2, 0, 2) << endl;
+
+        // 449. Serialize and Deserialize BST
+        // Input: root = [2,1,3]
+        // Output: [2, 1, 3]
+        // Input: [8,5,1,7,10,12]
+        // Output: [8, 5, 10, 1, 7, null, 12]
+        TreeNode* root = LeetCodeUtil::BuildTreeFromLevelOrderString("[8, 5, 10, 1, 7, null, 12]");
+        Codec codec;
+        string resultStr = codec.serialize(root);
+        cout << "Serialize BST: " << resultStr << endl;
+
+        newNode = codec.deserialize(resultStr);
+        cout << "Deserialize BST: " << endl;
+        LeetCodeUtil::printTreeLevelOrder(newNode);
+
+        LeetCodeUtil::DeleteTree(root);
+        LeetCodeUtil::DeleteTree(newNode);
     }
 }

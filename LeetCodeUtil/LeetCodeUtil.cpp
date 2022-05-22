@@ -178,6 +178,60 @@ namespace LeetCodeUtil
         return head;
     }
 
+    void BuildCharVectorFromString(const string& data, vector<char>* result)
+    {
+        if (!result)
+        {
+            return;
+        }
+
+        string raw = data.substr(1, data.size() - 2);
+        istringstream is(raw);
+        string sub;
+        while (getline(is, sub, ','))
+        {
+            while (sub[0] == ' ')
+            {
+                sub = sub.substr(1, sub.size() - 1);
+            }
+            while (sub[sub.size() - 1] == ' ')
+            {
+                sub.pop_back();
+            }
+            result->push_back(sub.back());
+        }
+    }
+
+    void BuildCharMatrixFromString(const string& data, vector<vector<char>>* matrix)
+    {
+        if (!matrix)
+        {
+            return;
+        }
+
+        matrix->clear();
+
+        string raw = data.substr(1, data.size() - 2);
+        istringstream is(raw);
+        string sub;
+        while (getline(is, sub, ']'))
+        {
+            while (sub.front() == ' ' || sub.front() == ',')
+            {
+                sub.erase(0, 1);
+            }
+            while (sub.back() == ' ')
+            {
+                sub.pop_back();
+            }
+            sub.push_back(']');
+
+            vector<char> row;
+            BuildCharVectorFromString(sub, &row);
+            matrix->push_back(row);
+        }
+    }
+
     // Input: [1, 2], or [1,2,3]
     // Output: vector<int> with content 1, 2.
     void BuildIntVectorFromString(const string& data, vector<int>* result)

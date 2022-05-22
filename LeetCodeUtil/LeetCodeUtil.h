@@ -117,6 +117,10 @@ namespace LeetCodeUtil
 
 	ListNode* buildLinkedListFromVector( const vector<int>& aInput );
 
+	void BuildCharVectorFromString(const string& data, vector<char>* result);
+
+	void BuildCharMatrixFromString(const string& data, vector<vector<char>>* matrix);
+
 	void BuildIntVectorFromString(const string& data, vector<int>* result);
 
 	void BuildIntMatrixFromString(const string& data, vector<vector<int>>* matrix);

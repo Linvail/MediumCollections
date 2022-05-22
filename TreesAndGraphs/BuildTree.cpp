@@ -8,77 +8,7 @@ namespace TreesAndGraphs
 {
     using namespace std;
 
-    static const int sInvalidValue = INT_MAX;
-
-    TreeNode* createTree_omit_missing_children
-        (
-        const vector<int>& aNodeArray
-        )
-    {
-        TreeNode* root = new TreeNode( aNodeArray[0] );
-        int start = 1;
-
-        vector<TreeNode*> prevLevel;
-        prevLevel.push_back( root );
-
-        while( !prevLevel.empty() && start < aNodeArray.size() )
-        {
-            vector<TreeNode*> thisLevel;
-            for( auto node : prevLevel )
-            {
-                if( aNodeArray[start] != sInvalidValue )
-                {
-                    node->left = new TreeNode( aNodeArray[start] );
-                    node->left->parent = node;
-                    thisLevel.push_back( node->left );
-                }
-                start++;
-                if( start >= aNodeArray.size() )
-                {
-                    break;
-                }
-
-                if( aNodeArray[start] != sInvalidValue )
-                {
-                    node->right = new TreeNode( aNodeArray[start] );
-                    node->right->parent = node;
-                    thisLevel.push_back( node->right );
-                }
-                start++;
-
-                if( start >= aNodeArray.size() )
-                {
-                    break;
-                }
-            }
-            swap( prevLevel, thisLevel );
-        }
-
-        return root;
-    }
-
-    //! Create a tree from level-order arrangement vector.
-    //! Note that the value of the node cannot be INT_MAX.
-    TreeNode* levelOrderCreateTree
-        (
-        vector<string>& arr
-        )
-    {
-        if( arr.size() == 0 )
-        {
-            return nullptr;
-        }
-
-        vector<int> nodes;
-        for( auto& str : arr )
-        {
-            nodes.push_back( str == "null" ? INT_MAX : stoi(str) );
-        }
-
-        return createTree_omit_missing_children( nodes );
-    }
-
-    // Having preorder and postorder is not enough to build one unique binary tree.
+    // Having preorder and postorder is NOT enough to build one unique binary tree.
     // We must have inorder.
 
     /****************************************************************
@@ -240,7 +170,7 @@ namespace TreesAndGraphs
         )
     {
         // preorder -> [root] [left subtree] [right subtree]
-        // postorder ->[left subtree][right substree][root]
+        // postorder ->[left subtree][right subtree][root]
         // preorder -> [1] [2, 4, 5] [3, 6, 7]
         // postorder ->[4, 5, 2][6, 7, 3][1]
         if( prLeft > prRight || poLeft > poRight )
@@ -310,6 +240,8 @@ namespace TreesAndGraphs
 
         TreeNode* newRoot = new TreeNode( preorder[aLeft] );
 
+        // Try to find the first number that is greater than root.
+        // It is the start point of the right tree.
         int i = aLeft + 1;
         for( ; i <= aRight; ++i )
         {

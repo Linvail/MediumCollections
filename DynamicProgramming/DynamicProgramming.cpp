@@ -152,12 +152,16 @@ namespace DynamicProgramming
     //------------------------------------------------------------------------------------------------------------------------
     // 322. Coin Change
     //
-    // Let count[i] be the minimum number of coins for amount i. count[amount] is the answer.
-    // count[i] = min( count[i], count[i - conins[j]] + 1 ) for every j in conis
-    // Calculate count[1] ~ count[amount].
     //------------------------------------------------------------------------------------------------------------------------
     int coinChange( vector<int>& coins, int amount )
     {
+        // Let count[i] be the minimum number of coins for amount i. count[amount] is the answer.
+        // count[i] = min( count[i], count[i - coins[j]] + 1 ) for every j in coins.
+        // Calculate count[1] ~ count[amount].
+        // For example, we already built count[1~9]. Now we want count[10], which is
+        // min ( count[9] + 1, count[8] + 1, count[5] + 1 ).
+        // which represent: count[9] plus one 1-dollar coin, count[8] plus one 2-dollar coin,
+        // count[5] plus one 5-dollar coin.
         const int InvalidCount = amount + 1;
         vector<int> count( amount + 1, InvalidCount );
 
