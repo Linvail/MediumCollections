@@ -215,7 +215,7 @@ namespace TreesAndGraphs
 
         */
         vector<string> testV = { "4", "2", "6", "1", "3", "5", "7" };
-        TreeNode* testData = levelOrderCreateTree( testV );
+        TreeNode* testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
 
         vector<int> result = morrisTraversal_inorder( testData );
 

@@ -1,5 +1,6 @@
 #include "TreesAndGraphs.h"
 #include "BuildTree.h"
+#include "LeetCodeUtil.h"
 
 #include <stack>
 #include <string>
@@ -134,7 +135,7 @@ namespace TreesAndGraphs
         // Input: root = [2,1,3], p = 1
         // Output: 2
         vector<string> nodeVector = { "2", "1", "3" };
-        TreeNode* root = levelOrderCreateTree( nodeVector );
+        TreeNode* root = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( nodeVector );
         TreeNode* p = root->left;
         TreeNode* result = inorderSuccessor_BST( root, p );
         cout << "Result of Inorder Successor in BST: " << ( ( result != nullptr ) ? to_string( result->val ) : string( "null" ) ) << endl;
@@ -143,21 +144,21 @@ namespace TreesAndGraphs
         // Input: root = [5,3,6,2,4,null,null,1], p = 6
         // Output: null
         nodeVector = { "5", "3", "6", "2", "4", "null", "null", "1" };
-        root = levelOrderCreateTree( nodeVector );
+        root = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( nodeVector );
         p = root->right;
         result = inorderSuccessor_BST( root, p );
         cout << "Result of Inorder Successor in BST: " << ( ( result != nullptr ) ? to_string( result->val ) : string( "null" ) ) << endl;
         DeleteTree( root );
 
         nodeVector = { "2", "1", "3" };
-        root = levelOrderCreateTree( nodeVector );
+        root = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( nodeVector );
         p = root->left;
         result = inorderSuccessor( p );
         cout << "Result of Inorder Successor in BST II: " << ( ( result != nullptr ) ? to_string( result->val ) : string( "null" ) ) << endl;
         DeleteTree( root );
 
         nodeVector = { "5", "3", "6", "2", "4", "null", "null", "1" };
-        root = levelOrderCreateTree( nodeVector );
+        root = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( nodeVector );
         p = root->right;
         result = inorderSuccessor( root, p );
         cout << "Result of Inorder Successor in BST: " << ( ( result != nullptr ) ? to_string( result->val ) : string( "null" ) ) << endl;

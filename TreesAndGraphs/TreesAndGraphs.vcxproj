@@ -144,7 +144,7 @@
     <ClCompile Include="InorderSuccessorInBST.cpp" />
     <ClCompile Include="KthSmallestElementInABST.cpp" />
     <ClCompile Include="MorrisTraversal.cpp" />
-    <ClCompile Include="NumberOfIslands.cpp" />
+    <ClCompile Include="MatrixTraversal.cpp" />
     <ClCompile Include="Traversal.cpp" />
     <ClCompile Include="TreesAndGraphs.cpp" />
   </ItemGroup>

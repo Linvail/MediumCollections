@@ -375,10 +375,11 @@ namespace SortingAndSearching
     //------------------------------------------------------------------------------------------------------------------------
     // 81. Search in Rotated Sorted Array II
     //
-    // Follow up: This problem is similar to Search in Rotated Sorted Array, but nums may contain duplicates. Would this affect the runtime complexity? How and why?
+    // Follow up: This problem is similar to Search in Rotated Sorted Array, but 'nums' may contain duplicates.
+    // Would this affect the runtime complexity? How and why?
     //
     // Observe [3 1 1] and [1 1 3 1]. When middle is equal the right, the 3 could be on left or right.
-    // Solution: Decrement right until we find a differnt value.
+    // Solution: Decrement right until we find a different value.
     //------------------------------------------------------------------------------------------------------------------------
 
     int search_with_dup( vector<int>& nums, int target )

@@ -11,15 +11,14 @@ namespace ArrayAndStrings
     // Given a string s, find the length of the longest substring without repeating characters.
     //
     // s consists of English letters, digits, symbols and spaces.
-    // Idea: If the elements are limited as such, we could use a integer array to represent them, so
-    // we won't need a hash map.
-
     // Moving window method.
     int lengthOfLongestSubstring( string s )
     {
         int result = 0;
+        // It is -1 because we scan from index 0. 0 - (-1) = 1, meaning the
+        // 1st char in s.
         int left = -1;
-        // <character, its index in s>
+        // <char c, that latest index of c in s>
         unordered_map<char, int> umap;
         for( int i = 0; i < s.size(); ++i )
         {
@@ -27,7 +26,7 @@ namespace ArrayAndStrings
             {
                 left = umap[s[i]];
             }
-
+            // Always update, so we get its latest index.
             umap[s[i]] = i;
             result = max( result, i - left );
         }
@@ -35,6 +34,8 @@ namespace ArrayAndStrings
     }
 
     // Moving window method without unodered_map.
+    // Idea: If the elements are limited as such, we could use a integer array to
+    // represent them, so we won't need a hash map.
     int lengthOfLongestSubstring_v2( string s )
     {
         vector<int> m( 128, -1 );

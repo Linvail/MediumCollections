@@ -1,4 +1,5 @@
 #include "TreesAndGraphs.h"
+#include "LeetCodeUtil.h"
 
 #include <stack>
 
@@ -79,7 +80,7 @@ namespace TreesAndGraphs
         // Input: root = [5,3,6,2,4,null,null,1], k = 3
         // Output: 3
         vector<string> testV = { "5", "3", "6", "2", "4", "null", "null", "1" };
-        TreeNode* testData = levelOrderCreateTree( testV );
+        TreeNode* testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
 
         cout << "Result of kthSmallest: " << kthSmallest_recursive( testData, 3 ) << endl;
     }

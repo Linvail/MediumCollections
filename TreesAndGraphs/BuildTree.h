@@ -5,20 +5,13 @@
 
 namespace LeetCodeUtil
 {
-    class TreeNode;
+    struct TreeNode;
 }
 
 namespace TreesAndGraphs
 {
     using namespace std;
     using namespace LeetCodeUtil;
-
-    TreeNode* createTree_omit_missing_children( const vector<int>& aNodeArray );
-
-    TreeNode* levelOrderCreateTree
-        (
-        vector<string>& arr
-        );
 
     // 105. Construct Binary Tree from Preorder and Inorder Traversal (Medium).
     TreeNode* buildTree( vector<int>& preorder, vector<int>& inorder );

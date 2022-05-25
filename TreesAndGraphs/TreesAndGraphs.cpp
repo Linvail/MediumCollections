@@ -19,7 +19,7 @@ int main()
 
     test_kthSmallest();
 
-    test_numIslands();
+    test_matrix_traversal();
 
     test_inorderSuccessor();
 }

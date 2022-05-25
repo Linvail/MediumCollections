@@ -557,7 +557,7 @@ namespace TreesAndGraphs
            1  3  5   7
         */
         vector<string> testV = { "4", "2", "6", "1", "3", "5", "7" };
-        TreeNode* testData = levelOrderCreateTree( testV );
+        TreeNode* testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
         #endif
 
         vector<int> result = inorderTraversal( testData );
@@ -593,13 +593,13 @@ namespace TreesAndGraphs
         //vector<string> specialTree = { "2", "2", "5", "null", "null", "5", "7" }; // 5
         //vector<string> specialTree = { "2", "2", "2" }; // -1
         vector<string> specialTree = { "1", "1", "2", "1", "1", "2", "2" }; // 2
-        testData = levelOrderCreateTree( specialTree );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( specialTree );
         int secondMinimum = findSecondMinimumValue( testData );
         cout << "Result of findSecondMinimumValue: " << secondMinimum << endl;
         DeleteTree( testData );
 
         specialTree = { "1", "1", "3", "1", "1", "3", "4", "3", "1", "1", "1", "3", "8", "4", "8", "3", "3", "1", "6", "2", "1" };
-        testData = levelOrderCreateTree( specialTree );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( specialTree );
         secondMinimum = findSecondMinimumValue( testData );
         cout << "Result of findSecondMinimumValue: " << secondMinimum << endl; // 2
         DeleteTree( testData );
@@ -613,7 +613,7 @@ namespace TreesAndGraphs
         // Output: [2, 1, 4, null, null, 3]
         specialTree = { "3", "1", "4", "null", "null", "2" };
         //specialTree = { "1", "3", "null", "null", "2" };
-        testData = levelOrderCreateTree( specialTree );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( specialTree );
         recoverTree( testData );
         cout << "Result of recoverTree: " << endl;
         printTreeLevelOrder( testData );
@@ -625,7 +625,7 @@ namespace TreesAndGraphs
         // Input: root = [3,9,20,null,null,15,7]
         // Output: [[3], [20, 9], [15, 7]]
         testV = { "3", "9", "20", "null", "null", "15", "7" };
-        testData = levelOrderCreateTree( testV );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
         resultVV = zigzagLevelOrder( testData );
         cout << "Result of zigzagLevelOrder: " << endl;
         printVectorOfVector( resultVV );
@@ -633,7 +633,7 @@ namespace TreesAndGraphs
         cout << "\n";
 
         testV = { "1", "2", "3", "4", "5", "6", "7" };
-        testData = levelOrderCreateTree( testV );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
         TreeNode* nodeResult = connect_iterative( testData );
         // Use debugger to examine the result.
         cout << "Result of Populating Next Right Pointers in Each Node:";
@@ -645,7 +645,7 @@ namespace TreesAndGraphs
         //testV = { "1", "2", "3", "4", "5", "null", "7" };
         //testV = { "3", "9", "20", "null", "null", "15", "7" };
         testV = { "-1", "-7", "9", "null", "null", "-1", "-7", "null", "null", "null", "null", "null", "8", "-9" };
-        testData = levelOrderCreateTree( testV );
+        testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
         nodeResult = connect_not_perfect( testData );
         cout << "Result of Populating Next Right Pointers in Each Node II:";
         // Use debugger to examine the result.

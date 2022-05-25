@@ -125,6 +125,8 @@ namespace LeetCodeUtil
 
 	void BuildIntMatrixFromString(const string& data, vector<vector<int>>* matrix);
 
+	TreeNode* BuildTreeFromLevelOrderStringVector(const vector<string>& aNodeArray);
+
 	TreeNode* BuildTreeFromLevelOrderString(const string& data);
 
 	void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext = false );

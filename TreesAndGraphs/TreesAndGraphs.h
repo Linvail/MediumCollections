@@ -11,7 +11,7 @@ namespace TreesAndGraphs
 
     void test_traversal();
 
-    void test_numIslands();
+    void test_matrix_traversal();
 
     void test_inorderSuccessor();
 }

@@ -290,7 +290,7 @@ namespace LeetCodeUtil
         }
     }
 
-    TreeNode* createTree_omit_missing_children
+    TreeNode* BuildTreeFromLevelOrderStringVector
         (
         const vector<string>& aNodeArray
         )
@@ -375,7 +375,7 @@ namespace LeetCodeUtil
             end = data.find_first_of(',', start);
         }
 
-        return createTree_omit_missing_children(nodes);
+        return BuildTreeFromLevelOrderStringVector(nodes);
     }
 
     void printTreeLevelOrder( TreeNode* aRoot, bool aPrintNext )

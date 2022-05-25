@@ -30,7 +30,7 @@
     <ClCompile Include="MorrisTraversal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NumberOfIslands.cpp">
+    <ClCompile Include="MatrixTraversal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InorderSuccessorInBST.cpp">
