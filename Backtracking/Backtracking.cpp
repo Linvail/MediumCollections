@@ -340,14 +340,14 @@ namespace Backtracking
 
         vector<string> result = letterCombinations( testData );
         cout << "Result of letterCombinations: ";
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
         cout << endl;
 
         // Input: n = 3
         // Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
         result = generateParenthesis( 3 );
         cout << "Result of generateParenthesis: ";
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
         cout << endl;
 
         // Input: nums = [1, 2, 3]

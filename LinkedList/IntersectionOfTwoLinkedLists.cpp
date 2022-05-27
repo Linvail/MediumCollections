@@ -93,22 +93,22 @@ namespace LinkedList
         ListNode n5_2( 5, &n6_2 );
 
         cout << "\nList A:";
-        printListNode( &n4_1 );
+        PrintListNode( &n4_1 );
         cout << "\nList B:";
-        printListNode( &n5_2 );
+        PrintListNode( &n5_2 );
         cout << endl;
 
         ListNode* result = nullptr;
         /*result = getIntersectionNode(&n4_1, &n5_2);
 
         cout << "Result of getIntersectionNode:";
-        printListNode( result );
+        PrintListNode( result );
         cout << endl;*/
 
         result = getIntersectionNode_v2( &n4_1, &n5_2 );
 
         cout << "Result of getIntersectionNode_v2:";
-        printListNode( result );
+        PrintListNode( result );
         cout << endl;
     }
 }

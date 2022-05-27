@@ -57,7 +57,7 @@ namespace LinkedList
         ListNode list2_n1( 5, &list2_n2 );
 
         ListNode* result = addTwoNumbers( &list1_n1, &list2_n1 );
-        printListNode( result );
+        PrintListNode( result );
 
         delete result;
     }

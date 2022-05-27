@@ -48,24 +48,24 @@ namespace ArrayAndStrings
 
         vector<int> testData = { 1, 2, 3, 4, 5 };
 
-        printVector( testData );
+        PrintVector( testData );
         cout << "Result is " << increasingTriplet( testData ) << endl;
 
         testData = { 5, 4, 3, 2, 1 };
-        printVector( testData );
+        PrintVector( testData );
         cout << "Result is " << increasingTriplet( testData ) << endl;
 
         // The triplet (3, 4, 5) is valid because nums[3] == 0 < nums[4] == 4 < nums[5] == 6.
         testData = { 2, 1, 5, 0, 4, 6 };
-        printVector( testData );
+        PrintVector( testData );
         cout << "Result is " << increasingTriplet( testData ) << endl;
 
         testData = { 2, 1, 5, 0, 6, 5 };
-        printVector( testData );
+        PrintVector( testData );
         cout << "Result is " << increasingTriplet( testData ) << endl;
 
         testData = { 2, 4, -2, -3 };
-        printVector( testData );
+        PrintVector( testData );
         cout << "Result is " << increasingTriplet( testData ) << endl;
 
         testData = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

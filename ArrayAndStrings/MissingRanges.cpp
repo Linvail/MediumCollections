@@ -95,31 +95,31 @@ namespace ArrayAndStrings
         vector<int> nums = { 0,1,3,50,75 };
         auto result = findMissingRanges( nums, 0, 99 );
         cout << "Missing Ranges of { 0,1,3,50,75 }. [0, 99]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
 
         nums = { -1 };
         result = findMissingRanges( nums, -1, -1 );
         cout << "Missing Ranges of { -1 }. [-1, -1]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
 
         nums = { INT_MAX };
         result = findMissingRanges( nums, INT_MAX - 2, INT_MAX );
         cout << "Missing Ranges of { INT_MAX }. [INT_MAX - 2, INT_MAX]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
 
         nums = { };
         result = findMissingRanges( nums, 1, 3 );
         cout << "Missing Ranges of { }. [1, 3]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
 
         nums = { -1 };
         result = findMissingRanges( nums, -1, 0 );
         cout << "Missing Ranges of { -1 }. [-1, 0]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
 
         nums = { 1 };
         result = findMissingRanges( nums, 0, 9 );
         cout << "Missing Ranges of { 1 }. [0, 9]: " << endl;
-        LeetCodeUtil::printVector( result );
+        LeetCodeUtil::PrintVector( result );
     }
 }

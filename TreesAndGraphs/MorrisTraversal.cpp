@@ -221,19 +221,19 @@ namespace TreesAndGraphs
 
         // 1234567
         cout << "Result of morrisTraversal_inorder: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
 
         // 4213657
         result = morrisTraversal_preorder( testData );
         cout << "Result of morrisTraversal_preorder: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
 
         // 1325764
         result = morrisTraversal_postorder( testData );
         cout << "Result of morrisTraversal_postorder: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
     }
 }

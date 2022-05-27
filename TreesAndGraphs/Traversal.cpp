@@ -564,28 +564,28 @@ namespace TreesAndGraphs
 
         // 1234567
         cout << "Result of inorderTraversal: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
 
         result = preOrderTraversal( testData );
 
         // 4213657
         cout << "Result of preOrderTraversal: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
 
         result = postOrderTraversal( testData );
 
         // 1325764
         cout << "Result of postOrderTraversal: ";
-        printVector( result );
+        PrintVector( result );
         cout << endl;
 
         auto resultVV = levelOrderTraversal( testData );
 
         // 4261357
         cout << "Result of levelOrderTraversal: ";
-        printVectorOfVector( resultVV );
+        PrintMatrix( resultVV );
         cout << endl;
 
         DeleteTree( testData );
@@ -616,7 +616,7 @@ namespace TreesAndGraphs
         testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( specialTree );
         recoverTree( testData );
         cout << "Result of recoverTree: " << endl;
-        printTreeLevelOrder( testData );
+        PrintTreeLevelOrder( testData );
         DeleteTree( testData );
 
         cout << "\n";
@@ -628,7 +628,7 @@ namespace TreesAndGraphs
         testData = LeetCodeUtil::BuildTreeFromLevelOrderStringVector( testV );
         resultVV = zigzagLevelOrder( testData );
         cout << "Result of zigzagLevelOrder: " << endl;
-        printVectorOfVector( resultVV );
+        PrintMatrix( resultVV );
 
         cout << "\n";
 
@@ -637,7 +637,7 @@ namespace TreesAndGraphs
         TreeNode* nodeResult = connect_iterative( testData );
         // Use debugger to examine the result.
         cout << "Result of Populating Next Right Pointers in Each Node:";
-        printTreeLevelOrder( nodeResult, true );
+        PrintTreeLevelOrder( nodeResult, true );
         DeleteTree( nodeResult );
 
         cout << "\n";
@@ -649,7 +649,7 @@ namespace TreesAndGraphs
         nodeResult = connect_not_perfect( testData );
         cout << "Result of Populating Next Right Pointers in Each Node II:";
         // Use debugger to examine the result.
-        printTreeLevelOrder( nodeResult, true );
+        PrintTreeLevelOrder( nodeResult, true );
         DeleteTree( nodeResult );
     }
 }

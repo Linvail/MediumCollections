@@ -12,40 +12,40 @@ namespace TreesAndGraphs
     // We must have inorder.
 
     /****************************************************************
-        1¡@¡@¡@¡@¡@¡@preorder:¡@¡@  1¡@¡@2¡@¡@3
-       / \¡@¡@¡@¡@¡@ inorder:¡@     2¡@¡@1¡@¡@3
-     2    3¡@¡@  ¡@ postorder:¡@¡@ 2¡@¡@3¡@¡@1
+        1ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@preorder:ï¿½@ï¿½@  1ï¿½@ï¿½@2ï¿½@ï¿½@3
+       / \ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ inorder:ï¿½@     2ï¿½@ï¿½@1ï¿½@ï¿½@3
+     2    3ï¿½@ï¿½@  ï¿½@ postorder:ï¿½@ï¿½@ 2ï¿½@ï¿½@3ï¿½@ï¿½@1
 
 
 
-           1   ¡@¡@¡@¡@preorder:¡@¡@   1¡@¡@2¡@¡@3
-          / ¡@¡@¡@¡@¡@ inorder:¡@¡@    3¡@¡@2¡@¡@1
-        2 ¡@¡@¡@¡@     postorder: ¡@¡@3¡@¡@2¡@¡@1
+           1   ï¿½@ï¿½@ï¿½@ï¿½@preorder:ï¿½@ï¿½@   1ï¿½@ï¿½@2ï¿½@ï¿½@3
+          / ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ inorder:ï¿½@ï¿½@    3ï¿½@ï¿½@2ï¿½@ï¿½@1
+        2 ï¿½@ï¿½@ï¿½@ï¿½@     postorder: ï¿½@ï¿½@3ï¿½@ï¿½@2ï¿½@ï¿½@1
        /
      3
 
 
 
-       1¡@¡@¡@¡@    preorder:¡@¡@  1¡@¡@2¡@¡@3
-      / ¡@¡@¡@¡@¡@  inorder:¡@¡@   2¡@¡@3¡@¡@1
-    2 ¡@¡@¡@¡@¡@¡@  postorder:¡@¡@3¡@¡@2¡@¡@1
+       1ï¿½@ï¿½@ï¿½@ï¿½@    preorder:ï¿½@ï¿½@  1ï¿½@ï¿½@2ï¿½@ï¿½@3
+      / ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@  inorder:ï¿½@ï¿½@   2ï¿½@ï¿½@3ï¿½@ï¿½@1
+    2 ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@  postorder:ï¿½@ï¿½@3ï¿½@ï¿½@2ï¿½@ï¿½@1
       \
        3
 
 
 
-       1¡@¡@¡@¡@     preorder:¡@  1¡@¡@2¡@¡@3
-         \ ¡@¡@¡@¡@  inorder:¡@    1¡@¡@3¡@¡@2
-          2 ¡@¡@¡@¡@ postorder:¡@¡@3¡@¡@2¡@¡@1
+       1ï¿½@ï¿½@ï¿½@ï¿½@     preorder:ï¿½@  1ï¿½@ï¿½@2ï¿½@ï¿½@3
+         \ ï¿½@ï¿½@ï¿½@ï¿½@  inorder:ï¿½@    1ï¿½@ï¿½@3ï¿½@ï¿½@2
+          2 ï¿½@ï¿½@ï¿½@ï¿½@ postorder:ï¿½@ï¿½@3ï¿½@ï¿½@2ï¿½@ï¿½@1
          /
        3
 
 
-       1¡@¡@¡@¡@     preorder:¡@   1¡@¡@2¡@¡@3
-         \ ¡@¡@¡@¡@¡@inorder:¡@    1¡@¡@2¡@¡@3
-          2 ¡@¡@¡@¡@ postorder:¡@¡@3¡@¡@2¡@¡@1
+       1ï¿½@ï¿½@ï¿½@ï¿½@     preorder:ï¿½@   1ï¿½@ï¿½@2ï¿½@ï¿½@3
+         \ ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@inorder:ï¿½@    1ï¿½@ï¿½@2ï¿½@ï¿½@3
+          2 ï¿½@ï¿½@ï¿½@ï¿½@ postorder:ï¿½@ï¿½@3ï¿½@ï¿½@2ï¿½@ï¿½@1
             \
-¡@¡@¡@¡@		 3
+ï¿½@ï¿½@ï¿½@ï¿½@		 3
     ******************************************************************/
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -284,7 +284,7 @@ namespace TreesAndGraphs
         TreeNode* result = buildTree( preoder, inorder );
 
         cout << "Result of Construct Binary Tree from Preorder and Inorder Traversal:" << endl;
-        printTreeLevelOrder( result );
+        PrintTreeLevelOrder( result );
         DeleteTree( result );
         mInorderIndex.clear();
 
@@ -294,7 +294,7 @@ namespace TreesAndGraphs
         result = buildTree_in_post( inorder, postorder );
 
         cout << "Result of Construct Binary Tree from Inorder and Postorder Traversal:" << endl;
-        printTreeLevelOrder( result );
+        PrintTreeLevelOrder( result );
         DeleteTree( result );
 
         // 889. Construct Binary Tree from Preorder and Postorder Traversal
@@ -304,7 +304,7 @@ namespace TreesAndGraphs
         postorder = { 4, 5, 2, 6, 7, 3, 1 };
         result = constructFromPrePost( preorder, postorder );
         cout << "Construct Binary Tree from Preorder and Postorder Traversal:" << endl;
-        printTreeLevelOrder( result );
+        PrintTreeLevelOrder( result );
         DeleteTree( result );
 
         // Input: preorder = [8,5,1,7,10,12]
@@ -312,7 +312,7 @@ namespace TreesAndGraphs
         preorder = { 8, 5, 1, 7, 10, 12 };
         result = bstFromPreorder( preorder );
         cout << "Construct Binary Search Tree from Preorder Traversal:" << endl;
-        printTreeLevelOrder( result );
+        PrintTreeLevelOrder( result );
         DeleteTree( result );
 
         cout << endl;

@@ -96,7 +96,7 @@ namespace Others
     //
     // Using hash table can solve in O(n) time and space.
     // To achieve O(1) space, we have two options:
-    // 1. Boyer¡VMoore majority vote algorithm
+    // 1. Boyerï¿½VMoore majority vote algorithm
     // 2. Bit manipulation - determine each bit of the result by checking whether there are more 1 than 0 in the same bit
     // among all numbers.
     //------------------------------------------------------------------------------------------------------------------------
@@ -219,7 +219,7 @@ namespace Others
         testStringArray = { "A","A","A","A","A","A","B","C","D","E","F","G" };
         vector<char> testCharArray;
 
-        LeetCodeUtil::convertToVectorOfChar( testStringArray, testCharArray );
+        LeetCodeUtil::ConvertToVectorOfChar( testStringArray, testCharArray );
         int n = 2;
         cout << "Result of Task Scheduler: " << leastInterval( testCharArray, n ) << endl;
 

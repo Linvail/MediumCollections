@@ -50,7 +50,7 @@ namespace ArrayAndStrings
         int target = 9;
 
         cout << "\ntest_twoSum_sorted: " << endl;
-        LeetCodeUtil::printVector( twoSum_sorted( input, target ) );
+        LeetCodeUtil::PrintVector( twoSum_sorted( input, target ) );
     }
 
 }

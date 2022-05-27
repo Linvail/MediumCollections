@@ -505,7 +505,7 @@ namespace Design
 
         newNode = codec.deserialize(resultStr);
         cout << "Deserialize BST: " << endl;
-        LeetCodeUtil::printTreeLevelOrder(newNode);
+        LeetCodeUtil::PrintTreeLevelOrder(newNode);
 
         LeetCodeUtil::DeleteTree(root);
         LeetCodeUtil::DeleteTree(newNode);

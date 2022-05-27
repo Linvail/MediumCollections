@@ -321,13 +321,13 @@ namespace SortingAndSearching
     * Must use binary search. The crucial problem is how to determine which half we should keep.
     * Here are all permutations. When the right-most number is larger than the middle one, the right half array is sorted.
     * When it is not, the left half array is sorted.
-    0¡@¡@1¡@¡@2¡@ 4¡@¡@5¡@¡@6¡@¡@7
-    7¡@¡@0¡@¡@1¡@ 2¡@¡@4¡@¡@5¡@¡@6
-    6¡@¡@7¡@¡@0¡@ 1¡@¡@2¡@¡@4¡@¡@5
-    5¡@¡@6¡@¡@7¡@ 0¡@¡@1¡@¡@2¡@¡@4
-    4¡@¡@5¡@¡@6¡@ 7¡@¡@0¡@¡@1¡@¡@2
-    2¡@¡@4¡@¡@5¡@ 6¡@¡@7¡@¡@0¡@¡@1
-    1¡@¡@2¡@¡@4¡@ 5¡@¡@6¡@¡@7¡@¡@0
+    0ï¿½@ï¿½@1ï¿½@ï¿½@2ï¿½@ 4ï¿½@ï¿½@5ï¿½@ï¿½@6ï¿½@ï¿½@7
+    7ï¿½@ï¿½@0ï¿½@ï¿½@1ï¿½@ 2ï¿½@ï¿½@4ï¿½@ï¿½@5ï¿½@ï¿½@6
+    6ï¿½@ï¿½@7ï¿½@ï¿½@0ï¿½@ 1ï¿½@ï¿½@2ï¿½@ï¿½@4ï¿½@ï¿½@5
+    5ï¿½@ï¿½@6ï¿½@ï¿½@7ï¿½@ 0ï¿½@ï¿½@1ï¿½@ï¿½@2ï¿½@ï¿½@4
+    4ï¿½@ï¿½@5ï¿½@ï¿½@6ï¿½@ 7ï¿½@ï¿½@0ï¿½@ï¿½@1ï¿½@ï¿½@2
+    2ï¿½@ï¿½@4ï¿½@ï¿½@5ï¿½@ 6ï¿½@ï¿½@7ï¿½@ï¿½@0ï¿½@ï¿½@1
+    1ï¿½@ï¿½@2ï¿½@ï¿½@4ï¿½@ 5ï¿½@ï¿½@6ï¿½@ï¿½@7ï¿½@ï¿½@0
     */
 
     int search( vector<int>& nums, int target )
@@ -502,7 +502,7 @@ namespace SortingAndSearching
         vector<int> testV = { 0, 0, 0, 0, 2, 0 };
         sortColors( testV );
         cout << "Result of Sort Colors:\n";
-        LeetCodeUtil::printVector( testV );
+        LeetCodeUtil::PrintVector( testV );
         cout << endl;
 
         // Input: nums = [1,1,1,2,2,3], k = 2
@@ -510,7 +510,7 @@ namespace SortingAndSearching
         testV = { 1,1,1,2,2,3 };
         vector<int> resultV = topKFrequent( testV, 2 );
         cout << "Result of Top K Frequent Elements:\n";
-        LeetCodeUtil::printVector( resultV );
+        LeetCodeUtil::PrintVector( resultV );
         cout << endl;
 
         // Input: nums = [3,2,1,5,6,4], k = 2
@@ -551,7 +551,7 @@ namespace SortingAndSearching
 
         resultV = searchRange( testV, target );
         cout << "Result of Find First and Last Position of Element in Sorted Array:\n";
-        LeetCodeUtil::printVector( resultV );
+        LeetCodeUtil::PrintVector( resultV );
         cout << endl;
 
         // Input: intervals = [[1,3],[2,6],[8,10],[15,18]]

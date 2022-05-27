@@ -138,11 +138,11 @@ namespace LinkedList
 
         ListNode nn1( 2 );
         ListNode nn2( 1, &nn1 );
-        printListNode( &nn2 );
+        PrintListNode( &nn2 );
 
         result = oddEvenList_v3( &nn2 );
         cout << "Result: " << endl;
-        printListNode( result );
+        PrintListNode( result );
 
         ListNode n1( 7 );
         ListNode n2( 4, &n1 );
@@ -152,18 +152,18 @@ namespace LinkedList
         ListNode n6( 1, &n5 );
         ListNode n7( 2, &n6 );
 
-        printListNode( &n7 );
+        PrintListNode( &n7 );
 
         result = oddEvenList_v3( &n7 );
         cout << "Result: " << endl;
-        printListNode( result );
+        PrintListNode( result );
 
         vector<int> testData = { 1, 2, 3, 4, 5, 6, 7, 8 };
-        ListNode* newList = buildLinkedListFromVector( testData );
-        printListNode( newList );
+        ListNode* newList = BuildLinkedListFromVector( testData );
+        PrintListNode( newList );
         result = oddEvenList_v3( newList );
         cout << "Result: " << endl;
-        printListNode( result );
+        PrintListNode( result );
 
         delete newList;
     }
