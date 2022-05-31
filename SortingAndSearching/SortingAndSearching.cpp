@@ -91,7 +91,7 @@ namespace SortingAndSearching
     // Kth Largest Element in an Array
     //
     // Using sort or priority_queue is easy but not smart.
-    // The better way is to utilize the parition precedure of quick sort.
+    // The better way is to utilize the partition procedure of quick sort.
     //
     //
     //------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +229,7 @@ namespace SortingAndSearching
     //
     // Idea: Iterate the intervals. Insert if no overlap and increment the position for the newInterval.
     // If overlapped, update the newInterval.
-    // After interated all, insert the newInterval into the correct position.
+    // After iterated all, insert the newInterval into the correct position.
     //------------------------------------------------------------------------------------------------------------------------
     vector<vector<int>> insert( vector<vector<int>>& intervals, vector<int>& newInterval )
     {
@@ -432,14 +432,14 @@ namespace SortingAndSearching
     //------------------------------------------------------------------------------------------------------------------------
     // 253. Meeting Rooms II
     //
-    // Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of
+    // Given an array of meeting time intervals where intervals[i] = [starti, endi], return the minimum number of
     // conference rooms required.
     // 1 <= intervals.length <= 10^4
     // 0 <= starti < endi <= 10^6
     //------------------------------------------------------------------------------------------------------------------------
     int minMeetingRooms(vector<vector<int>>& intervals)
     {
-        // The CompareTwoVector is actually not necessary, the default comparsion is fine.
+        // The CompareTwoVector is actually not necessary, the default comparison is fine.
         sort(intervals.begin(), intervals.end(), [](const vector<int>& aLeft, const vector<int>& aRight) { return aLeft[0] < aRight[0]; });
 
         // Keep the end time of an internal. The smallest is on top.
@@ -493,6 +493,57 @@ namespace SortingAndSearching
     //------------------------------------------------------------------------------------------------------------------------
 
     // Implemented on Leetcode.
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 435. Non-overlapping Intervals
+    // Topic: DP, Greedy
+    //------------------------------------------------------------------------------------------------------------------------
+    int eraseOverlapIntervals(vector<vector<int>>& intervals)
+    {
+        // I don't know how to use DP to solve this, Greedy seems more understandable.
+        const int cStart = 0;
+        const int cEnd = 1;
+        // Like other interval-related questions, we need to sort them first.
+        sort(intervals.begin(), intervals.end(),
+            [](const vector<int>& left, const vector<int>& right) { return left[0] < right[0]; }
+            );
+
+        // Idea: Iterate from left to right, starting with the 2nd item. Compare with the previous (if not being deleted)
+        // item. If this's start < previous one's end, there is overlapping. We need to delete one, but which one?
+        // Here is the greedy concept involves. We should delete the one whose end is greater.
+        // That is how we can meet the requirement :　return minimum number of intervals.
+        int result = 0;
+        int prevIdx = 0;
+        for (int i = 1; i < intervals.size(); ++i)
+        {
+            if (intervals[i][cStart] < intervals[prevIdx][cEnd])
+            {
+                result++;
+                // Deleting one interval needs a trick.
+                if (intervals[i][cEnd] < intervals[prevIdx][cEnd])
+                {
+                    // Delete intervals[previousIdx]
+                    prevIdx = i;
+                }
+                else
+                {
+                    // Delete intervals[i][cEnd]. Intentionally keep empty, we don't
+                    // need to update previousIdx.
+                    // 0    1     2
+                    // ^          ^
+                    // In the next iteration, prevIdx will be 0 and i will be 2.
+                }
+            }
+            else
+            {
+                // Just update previousIdx to follow i, i will be incremented in the loop.
+                prevIdx = i;
+            }
+        }
+
+        return result;
+    }
+
 
     void test_sorting_searching()
     {
@@ -572,7 +623,7 @@ namespace SortingAndSearching
 
         vector<vector<int>> resultVV = merge( testVV );
         cout << "Result of Merge Intervals:\n";
-        LeetCodeUtil::printVectorOfVector( resultVV );
+        LeetCodeUtil::PrintMatrix( resultVV );
         cout << endl;
 
         // Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
@@ -589,7 +640,7 @@ namespace SortingAndSearching
 
         resultVV = insert( testVV, newInterval );
         cout << "Result of Insert Interval:\n";
-        LeetCodeUtil::printVectorOfVector( resultVV );
+        LeetCodeUtil::PrintMatrix( resultVV );
         cout << endl;
 
         // Input: nums = [4,5,6,7,0,1,2], target = 0
@@ -614,6 +665,13 @@ namespace SortingAndSearching
         // Output: 1
         //resultVV = { {7, 10}, {2 ,4} };
         cout << "Result of Meeting Rooms II: " << minMeetingRooms_no_queue(resultVV) << endl;
+        cout << endl;
+
+        // 435. Non-overlapping Intervals
+        // Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+        // Output: 1
+        LeetCodeUtil::BuildIntMatrixFromString("[[1,2],[2,3]]", &testVV);
+        cout << "Result of Non-overlapping Intervals: " << eraseOverlapIntervals(testVV) << endl;
         cout << endl;
     }
 }

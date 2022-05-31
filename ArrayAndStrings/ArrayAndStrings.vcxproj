@@ -144,6 +144,7 @@
     <ClCompile Include="CountandSay.cpp" />
     <ClCompile Include="GroupAnagrams.cpp" />
     <ClCompile Include="IncreasingTripletSubsequence.cpp" />
+    <ClCompile Include="LongestConsecutiveSequence.cpp" />
     <ClCompile Include="LongestPalindromicSubstring.cpp" />
     <ClCompile Include="LongestSubstringWithoutRepeatingCharacters.cpp" />
     <ClCompile Include="MissingRanges.cpp" />
@@ -153,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayAndStrings.h" />
-    <ClInclude Include="Helper.h" />
     <ClInclude Include="MissingRanges.h" />
     <ClInclude Include="ThreeSum.h" />
     <ClInclude Include="TwoSumSorted.h" />

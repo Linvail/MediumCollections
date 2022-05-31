@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuildTree.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InorderSuccessorInBST.cpp" />
     <ClCompile Include="KthSmallestElementInABST.cpp" />
     <ClCompile Include="MorrisTraversal.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildTree.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="MorrisTraversal.h" />
     <ClInclude Include="TreesAndGraphs.h" />
   </ItemGroup>

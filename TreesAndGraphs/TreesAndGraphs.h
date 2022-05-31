@@ -2,8 +2,7 @@
 
 #include "LeetCodeUtil.h"
 #include "BuildTree.h"
-
-#include <vector>
+#include "Graph.h"
 
 namespace TreesAndGraphs
 {

@@ -123,6 +123,6 @@ namespace ArrayAndStrings
 
         auto result = groupAnagrams_v2( data );
 
-        LeetCodeUtil::printVectorOfVector( result );
+        LeetCodeUtil::PrintMatrix( result );
     }
 }

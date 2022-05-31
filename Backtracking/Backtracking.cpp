@@ -355,12 +355,12 @@ namespace Backtracking
         vector<int> testV = { 1, 2, 3 };
         auto resultV = permute( testV );
         cout << "Result of permute: ";
-        LeetCodeUtil::printVectorOfVector( resultV );
+        LeetCodeUtil::PrintMatrix( resultV );
         cout << endl;
 
         resultV = combine_DFS( 4, 2 );
         cout << "Result of combine(4 , 2): ";
-        LeetCodeUtil::printVectorOfVector( resultV );
+        LeetCodeUtil::PrintMatrix( resultV );
         cout << endl;
 
         // Input: nums = [1,2,3]
@@ -368,7 +368,7 @@ namespace Backtracking
         vector<int> setDigits = { 1, 2, 3 };
         resultV = subsets_recursive( setDigits );
         cout << "Result of subsets: ";
-        LeetCodeUtil::printVectorOfVector( resultV );
+        LeetCodeUtil::PrintMatrix( resultV );
         cout << endl;
 
         // Input: board = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], word = "ABCCED"

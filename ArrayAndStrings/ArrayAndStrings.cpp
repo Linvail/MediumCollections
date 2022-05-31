@@ -34,4 +34,6 @@ int main()
 	test_countAndSay();
 
 	test_missingRanges();
+
+	TestLongestConsecutiveSequence();
 }

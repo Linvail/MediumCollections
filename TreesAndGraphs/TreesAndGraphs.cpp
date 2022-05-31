@@ -3,10 +3,6 @@
 
 #include "TreesAndGraphs.h"
 
-#include <iostream>
-#include <string>
-#include <queue>
-
 int main()
 {
     std::cout << "TreesAndGraphs\n";
@@ -22,4 +18,6 @@ int main()
     test_matrix_traversal();
 
     test_inorderSuccessor();
+
+    TestGraphs();
 }

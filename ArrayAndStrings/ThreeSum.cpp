@@ -300,7 +300,7 @@ namespace ArrayAndStrings
 
 		#if( !TEST_BIG )
 			cout << "Test Data:" << endl;
-			LeetCodeUtil::printVectorOfVector( testData );
+			LeetCodeUtil::PrintMatrix( testData );
 			cout << "Result:" << endl;
 		#endif
 
@@ -309,7 +309,7 @@ namespace ArrayAndStrings
 			auto result = ArrayAndStrings::threeSum( data );
 
 			#if( !TEST_BIG )
-				LeetCodeUtil::printVectorOfVector( result );
+				LeetCodeUtil::PrintMatrix( result );
 			#endif
 		}
 
@@ -335,7 +335,7 @@ namespace ArrayAndStrings
 		vector<int> data = { 1000000000,1000000000,1000000000,1000000000 };
 		auto result = ArrayAndStrings::fourSum(data, -1);
 		std::cout << "Result of 4Sum: " << endl;
-		LeetCodeUtil::printVectorOfVector(result);
+		LeetCodeUtil::PrintMatrix(result);
 		cout << "\n";
 
 		// 454. 4Sum II (Medium)

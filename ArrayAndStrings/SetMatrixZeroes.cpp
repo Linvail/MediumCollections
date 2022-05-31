@@ -118,6 +118,6 @@ namespace ArrayAndStrings
 
         setZeroes( testData );
 
-        LeetCodeUtil::printVectorOfVector( testData );
+        LeetCodeUtil::PrintMatrix( testData );
     }
 }

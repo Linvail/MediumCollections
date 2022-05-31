@@ -464,6 +464,143 @@ namespace Design
         vector<int> m_rows;
     };
 
+    //------------------------------------------------------------------------------------------------------------------------
+    // 211. Design Add and Search Words Data Structure (Medium)
+    //------------------------------------------------------------------------------------------------------------------------
+    class WordDictionary
+    {
+    public:
+
+        struct TrieNode
+        {
+            // C++11 allow to initialize like this.
+            bool isWord = false;
+            TrieNode* children[26];
+
+            TrieNode()
+            {
+                memset(children, 0, sizeof(children));
+            }
+
+            ~TrieNode()
+            {
+                for (TrieNode* node : children)
+                {
+                    delete node;
+                }
+            }
+        };
+
+        WordDictionary()
+            : dictRoot(new TrieNode())
+        {
+        }
+
+        ~WordDictionary()
+        {
+            delete dictRoot;
+        }
+
+        void addWord(string word)
+        {
+            if (word.size() == 0)
+            {
+                return;
+            }
+
+            TrieNode* cur = dictRoot;
+            for (const auto& c : word)
+            {
+                if (cur->children[c - 'a'] == nullptr)
+                {
+                    cur->children[c - 'a'] = new TrieNode();
+                }
+                cur = cur->children[c - 'a'];
+            }
+            cur->isWord = true;
+        }
+
+        bool search(string word)
+        {
+            return searchWord(word, dictRoot);
+        }
+
+        bool searchWord(string word, TrieNode* cur)
+        {
+            for (int i = 0; i < word.size(); ++i)
+            {
+                const char& c = word[i];
+                if (c != '.')
+                {
+                    if (cur->children[c - 'a'] == nullptr)
+                    {
+                        return false;
+                    }
+                    cur = cur->children[c - 'a'];
+                }
+                else
+                {
+                    // DFS
+                    // '.' can match any letter.
+                    bool ret = false;
+                    for (const auto& node : cur->children)
+                    {
+                        if (node != nullptr)
+                        {
+                            ret = ( i != word.size() - 1 ) ? searchWord(word.substr(i + 1), node) : node->isWord;
+                            if (ret)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    return ret;
+                }
+            }
+
+            return cur->isWord;
+        }
+
+    private:
+        TrieNode* dictRoot;
+    };
+
+
+    //------------------------------------------------------------------------------------------------------------------------
+    // 271. Encode and Decode Strings (Medium)
+    //------------------------------------------------------------------------------------------------------------------------
+    class Codec271
+    {
+    public:
+
+        // Encodes a list of strings to a single string.
+        string encode(vector<string>& strs)
+        {
+            string result;
+            for (const auto& str : strs)
+            {
+                result.append(str);
+                result.push_back('\0');
+            }
+
+            return result;
+        }
+
+        // Decodes a single string to a list of strings.
+        vector<string> decode(string s)
+        {
+            vector<string> result;
+            istringstream is(s);
+            string temp;
+            while (getline(is, temp, '\0'))
+            {
+                result.push_back(temp);
+            }
+            return result;
+        }
+    };
+
+
     void test_design()
     {
         // Input: root = [1,2,3,null,null,4,5]
@@ -509,5 +646,32 @@ namespace Design
 
         LeetCodeUtil::DeleteTree(root);
         LeetCodeUtil::DeleteTree(newNode);
+
+        // 271. Encode and Decode Strings (Medium)
+        // Input: dummy_input = ["Hello", "World"]
+        // Output : ["Hello", "World"]
+        Codec271 sol271;
+        vector<string> dummy_input({ "Hello", "World" });
+        testStr = sol271.encode(dummy_input);
+        cout << "271. Encode and Decode Strings. encode: " << testStr << endl;
+        cout << "271. Encode and Decode Strings. decode: " << endl;
+        auto decodeOutput = sol271.decode(testStr);
+        LeetCodeUtil::PrintVector(decodeOutput);
+
+        // 211. Design Add and Search Words Data Structure (Medium)
+        WordDictionary wordDict;
+        //wordDict.addWord("bad");
+        //wordDict.addWord("dad");
+        //wordDict.addWord("mad");
+        wordDict.addWord("ad");
+        //wordDict.addWord("bat");
+        //cout << "211. Design Add and Search Words Data Structure: " << wordDict.search("pad") << endl; // return False
+        //cout << "211. Design Add and Search Words Data Structure: " << wordDict.search("bad") << endl; // return True
+        //cout << "211. Design Add and Search Words Data Structure: " << wordDict.search(".ad") << endl; // return True
+        //cout << "211. Design Add and Search Words Data Structure: " << wordDict.search("b..") << endl; // return True
+        cout << "211. Design Add and Search Words Data Structure: " << wordDict.search(".") << endl; // return True
+        // ["WordDictionary", "addWord", "addWord", "addWord", "addWord", "search", "search", "addWord", "search", "search", "search", "search", "search", "search"]
+        // [[], ["at"], ["and"], ["an"], ["add"], ["a"], [".at"], ["bat"], [".at"], ["an."], ["a.d."], ["b."], ["a.d"], ["."]]
+        // Expect: [null,null,null,null,null,false,false,null,true,true,false,false,true,false]
     }
 }

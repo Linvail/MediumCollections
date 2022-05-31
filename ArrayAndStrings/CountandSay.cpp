@@ -9,6 +9,7 @@ namespace ArrayAndStrings
 {
     using namespace LeetCodeUtil;
 
+    // 38. Count and Say
     // 1 <= n <= 30
     // To generate the nth term, just count and say the n-1th term.
     // Input: n = 4
@@ -47,9 +48,9 @@ namespace ArrayAndStrings
 
     void test_countAndSay()
     {
-        cout << "\ntest_countAndSay\n";
+        cout << "\n38. Count and Say\n";
 
-        int n = 30;
+        int n = 4;
 
         cout << "Result of " << n << " is " << countAndSay( n ) << endl;
     }
